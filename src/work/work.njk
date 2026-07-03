@@ -12,13 +12,16 @@ permalink: /work/
     {%- set embedUrl = entry.data.embedUrl %}
     {%- set sourceUrl = entry.data.sourceUrl %}
     {%- set thumbnail = entry.data.thumbnail %}
-    <li class="feed-item">
+    {%- set photo = entry.data.photo %}
+    <li class="feed-item feed-item--{{ embedType }}">
       <h2>{{ title }}</h2>
       <p class="feed-item__date">{{ entry.data.date | readableDate }}</p>
       {%- if embedType == "podcast" %}
         {% include "partials/embed-podcast.njk" %}
       {%- elif embedType == "instagram" %}
         {% include "partials/embed-instagram.njk" %}
+      {%- elif embedType == "photo" %}
+        {% include "partials/embed-photo.njk" %}
       {%- endif %}
       <p class="feed-item__caption">{{ entry.data.caption }}</p>
       {%- if entry.templateContent %}
