@@ -1,0 +1,14 @@
+---
+layout: layouts/base.njk
+---
+<article class="feed-item feed-item--single">
+  <h2>{{ title }}</h2>
+  <p class="feed-item__date">{{ date | readableDate }}</p>
+  {%- if embedType == "podcast" %}
+    {% include "partials/embed-podcast.njk" %}
+  {%- elif embedType == "instagram" %}
+    {% include "partials/embed-instagram.njk" %}
+  {%- endif %}
+  <p class="feed-item__caption">{{ caption }}</p>
+  {{ content | safe }}
+</article>

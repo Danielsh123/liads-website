@@ -1,0 +1,129 @@
+:root {
+  --color-bg: #fafafa;
+  --color-surface: #ffffff;
+  --color-text: #1a1a1a;
+  --color-text-muted: #5a5a5a;
+  --color-header-bg: #1f1f2e;
+  --color-header-text: #ffffff;
+  /* placeholder — confirm brand colors with Liad */
+  --color-accent: #e0483e;
+  /* placeholder — used sparingly (hover states, badges) */
+  --color-accent-2: #2f7d6b;
+  --font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  --max-width-content: 640px;
+  --space-section: 2rem;
+}
+
+body {
+  font-family: var(--font-family-base);
+  margin: 0;
+  padding: 0;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+}
+
+a {
+  color: var(--color-accent);
+}
+
+a:hover {
+  color: var(--color-accent-2);
+}
+
+header {
+  padding: 3rem 1.5rem;
+  text-align: center;
+  background-color: var(--color-header-bg);
+  color: var(--color-header-text);
+}
+
+header h1 {
+  margin: 0 0 0.5rem;
+  font-size: 2.5rem;
+}
+
+header a {
+  color: var(--color-header-text);
+}
+
+.site-nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 0;
+  margin: 1.5rem 0 0;
+}
+
+.site-nav a {
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.site-nav a:hover {
+  color: var(--color-accent);
+}
+
+main {
+  max-width: var(--max-width-content);
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+section {
+  margin-bottom: var(--space-section);
+}
+
+.feed-list {
+  list-style: none;
+  padding: 0;
+}
+
+.feed-item {
+  background-color: var(--color-surface);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.feed-item h2,
+.feed-item h3 {
+  margin-top: 0;
+}
+
+.feed-item__date {
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  margin-top: -0.5rem;
+}
+
+.embed {
+  display: block;
+  margin: 1rem 0;
+}
+
+.embed-instagram {
+  text-decoration: none;
+  color: var(--color-text);
+}
+
+.embed-instagram img {
+  width: 100%;
+  border-radius: 8px;
+  display: block;
+}
+
+.embed-instagram__label {
+  display: inline-block;
+  margin-top: 0.5rem;
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+footer {
+  text-align: center;
+  padding: 1.5rem;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
