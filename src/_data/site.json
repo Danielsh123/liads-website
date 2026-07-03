@@ -1,12 +1,12 @@
 {
-  "title": "Liad",
-  "tagline": "Welcome to my personal website.",
-  "author": "Liad",
+  "title": "ליעד",
+  "tagline": "ברוכים הבאים לאתר האישי שלי.",
+  "author": "ליעד",
   "email": "hello@example.com",
   "nav": [
-    { "text": "Home", "url": "/" },
-    { "text": "Work", "url": "/work/" },
-    { "text": "About", "url": "/about/" },
-    { "text": "Contact", "url": "/contact/" }
+    { "text": "בית", "url": "/" },
+    { "text": "עבודות", "url": "/work/" },
+    { "text": "אודות", "url": "/about/" },
+    { "text": "צור קשר", "url": "/contact/" }
   ]
 }
