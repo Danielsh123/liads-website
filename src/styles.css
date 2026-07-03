@@ -10,6 +10,9 @@
   --color-accent-4: #00c2a8;
   --gradient-primary: linear-gradient(135deg, var(--color-accent-2), var(--color-accent));
   --gradient-warm: linear-gradient(90deg, var(--color-accent), var(--color-accent-3), var(--color-accent-4));
+  --gradient-podcast: linear-gradient(135deg, var(--color-accent-2), var(--color-accent-4));
+  --gradient-instagram: linear-gradient(135deg, var(--color-accent), var(--color-accent-3));
+  --gradient-photo: linear-gradient(135deg, var(--color-accent-3), var(--color-accent-4));
   --font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
   --max-width-content: 720px;
   --space-section: 2.5rem;
@@ -178,26 +181,48 @@ section > h2::after,
 }
 
 .feed-item {
-  background-color: var(--color-surface);
+  position: relative;
+  border: 3px solid transparent;
   border-radius: var(--radius);
   padding: 1.75rem;
   margin-bottom: 1.5rem;
   box-shadow: 0 2px 8px rgba(32, 26, 43, 0.06);
-  border-right: 5px solid var(--color-accent-2);
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  background:
+    linear-gradient(var(--color-surface), var(--color-surface)) padding-box,
+    var(--card-gradient, var(--gradient-podcast)) border-box;
+  --ty: 28px;
+  --scale: 0.98;
+  --rotate: 0deg;
+  transition: box-shadow 0.2s ease, transform 0.2s ease, opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .feed-item--instagram {
-  border-right-color: var(--color-accent);
+  --card-gradient: var(--gradient-instagram);
 }
 
 .feed-item--photo {
-  border-right-color: var(--color-accent-3);
+  --card-gradient: var(--gradient-photo);
 }
 
-.feed-item:hover {
+.feed-item:nth-child(odd) {
+  --rotate: -1deg;
+}
+
+.feed-item:nth-child(even) {
+  --rotate: 1deg;
+}
+
+.feed-item.reveal.is-visible {
+  --ty: 0px;
+  --scale: 1;
+}
+
+.feed-item:hover,
+.feed-item.reveal.is-visible:hover {
+  --ty: -4px;
+  --scale: 1.015;
+  --rotate: 0deg;
   box-shadow: 0 10px 24px rgba(32, 26, 43, 0.1);
-  transform: translateY(-3px);
 }
 
 .feed-item h2,
@@ -222,26 +247,53 @@ section > h2::after,
   margin-top: 0.75rem;
 }
 
+.feed-item::before {
+  content: "";
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  font-size: 5rem;
+  line-height: 1;
+  opacity: 0.06;
+  pointer-events: none;
+}
+
+.feed-item--podcast::before {
+  content: "🎙";
+}
+
+.feed-item--instagram::before {
+  content: "📸";
+}
+
+.feed-item--photo::before {
+  content: "📷";
+}
+
 .badge {
+  position: absolute;
+  top: -10px;
+  right: 20px;
   display: inline-block;
   font-size: 0.75rem;
   font-weight: 800;
   padding: 0.3rem 0.7rem;
   border-radius: 999px;
-  margin-bottom: 0.75rem;
   color: #ffffff;
+  transform: rotate(-4deg);
+  box-shadow: 0 4px 10px rgba(32, 26, 43, 0.18);
 }
 
 .badge-podcast {
-  background: linear-gradient(135deg, var(--color-accent-2), var(--color-accent-4));
+  background: var(--gradient-podcast);
 }
 
 .badge-instagram {
-  background: linear-gradient(135deg, var(--color-accent), var(--color-accent-3));
+  background: var(--gradient-instagram);
 }
 
 .badge-photo {
-  background: linear-gradient(135deg, var(--color-accent-3), var(--color-accent-4));
+  background: var(--gradient-photo);
 }
 
 .embed-photo img {
@@ -272,6 +324,16 @@ section > h2::after,
   width: 100%;
   border-radius: var(--radius);
   display: block;
+}
+
+.embed-instagram img,
+.embed-photo img {
+  transition: transform 0.3s ease;
+}
+
+.feed-item:hover .embed-instagram img,
+.feed-item:hover .embed-photo img {
+  transform: scale(1.06);
 }
 
 .embed-instagram__label {
@@ -314,6 +376,12 @@ header {
 .reveal.is-visible {
   opacity: 1;
   transform: translateY(0) scale(1);
+}
+
+/* Higher specificity than .reveal / .reveal.is-visible above, so the
+   tilt/hover/reveal composition via --ty/--scale/--rotate always wins. */
+.feed-item.reveal {
+  transform: translateY(var(--ty)) scale(var(--scale)) rotate(var(--rotate));
 }
 
 .feed-item.reveal:nth-child(2) {
