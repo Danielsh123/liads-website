@@ -4,7 +4,7 @@ layout: layouts/base.njk
 permalink: /work/
 ---
 <section class="feed">
-  <h2>{{ title }}</h2>
+  <h2 class="reveal">{{ title }}</h2>
   <ul class="feed-list">
     {%- for entry in collections.feed %}
     {%- set title = entry.data.title %}
@@ -13,7 +13,7 @@ permalink: /work/
     {%- set sourceUrl = entry.data.sourceUrl %}
     {%- set thumbnail = entry.data.thumbnail %}
     {%- set photo = entry.data.photo %}
-    <li class="feed-item feed-item--{{ embedType }}">
+    <li class="feed-item feed-item--{{ embedType }} reveal">
       <h2>{{ title }}</h2>
       <p class="feed-item__date">{{ entry.data.date | readableDate }}</p>
       {%- if embedType == "podcast" %}

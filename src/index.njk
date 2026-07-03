@@ -3,12 +3,12 @@ title: בית
 layout: layouts/base.njk
 permalink: /
 ---
-<section class="intro">
+<section class="intro reveal">
   <p>היי, אני ליעד. כאן אני משתפת קטעים ממה שאני עושה – פרקי פודקאסט, פוסטים באינסטגרם ועוד.</p>
 </section>
 
 <section class="feed-preview">
-  <h2>עדכונים אחרונים</h2>
+  <h2 class="reveal">עדכונים אחרונים</h2>
   <ul class="feed-list">
     {%- for entry in collections.feed | limit(3) %}
     {%- set title = entry.data.title %}
@@ -17,7 +17,7 @@ permalink: /
     {%- set sourceUrl = entry.data.sourceUrl %}
     {%- set thumbnail = entry.data.thumbnail %}
     {%- set photo = entry.data.photo %}
-    <li class="feed-item feed-item--{{ embedType }}">
+    <li class="feed-item feed-item--{{ embedType }} reveal">
       <h3>{{ title }}</h3>
       <p class="feed-item__date">{{ entry.data.date | readableDate }}</p>
       {%- if embedType == "podcast" %}

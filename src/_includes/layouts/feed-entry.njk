@@ -1,7 +1,7 @@
 ---
 layout: layouts/base.njk
 ---
-<article class="feed-item feed-item--single feed-item--{{ embedType }}">
+<article class="feed-item feed-item--single feed-item--{{ embedType }} reveal">
   <h2>{{ title }}</h2>
   <p class="feed-item__date">{{ date | readableDate }}</p>
   {%- if embedType == "podcast" %}
