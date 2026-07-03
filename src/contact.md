@@ -1,6 +1,6 @@
 ---
-title: Contact
+title: צור קשר
 layout: layouts/page.njk
 permalink: /contact/
 ---
-Email: [hello@example.com](mailto:hello@example.com)
+אימייל: [hello@example.com](mailto:hello@example.com)

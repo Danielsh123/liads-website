@@ -1,9 +1,9 @@
 ---
-title: "Episode 1: Getting Started"
+title: "פרק 1: התחלה"
 date: 2026-07-03
 embedType: podcast
-caption: "A short note about what this episode covers, in Liad's own words."
+caption: "כמה מילים על מה שהפרק הזה מכיל, במילים של ליעד."
 embedUrl: "about:blank"
 layout: layouts/feed-entry.njk
 ---
-This is a placeholder podcast entry. Replace the frontmatter fields above with a real episode link and caption when ready.
+זו רשומת פודקאסט זמנית. יש להחליף את השדות למעלה בקישור אמיתי לפרק ובכיתוב בפועל כשיהיה מוכן.

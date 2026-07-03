@@ -3,7 +3,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/assets");
 
   eleventyConfig.addFilter("readableDate", (dateObj) => {
-    return new Intl.DateTimeFormat("en-US", {
+    return new Intl.DateTimeFormat("he-IL", {
       year: "numeric",
       month: "long",
       day: "numeric",
