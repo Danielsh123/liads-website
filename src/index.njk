@@ -16,7 +16,7 @@ permalink: /
     {%- set embedUrl = entry.data.embedUrl %}
     {%- set sourceUrl = entry.data.sourceUrl %}
     {%- set thumbnail = entry.data.thumbnail %}
-    <li class="feed-item">
+    <li class="feed-item feed-item--{{ embedType }}">
       <h3>{{ title }}</h3>
       <p class="feed-item__date">{{ entry.data.date | readableDate }}</p>
       {%- if embedType == "podcast" %}
