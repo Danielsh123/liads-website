@@ -301,33 +301,46 @@ footer {
   }
 }
 
-header,
-.intro,
-.page,
-.feed-item {
+header {
   animation: fadeInUp 0.5s ease both;
 }
 
-.feed-item:nth-child(2) {
-  animation-delay: 0.06s;
+.reveal {
+  opacity: 0;
+  transform: translateY(28px) scale(0.98);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.feed-item:nth-child(3) {
-  animation-delay: 0.12s;
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
 }
 
-.feed-item:nth-child(4) {
-  animation-delay: 0.18s;
+.feed-item.reveal:nth-child(2) {
+  transition-delay: 0.06s;
 }
 
-.feed-item:nth-child(5) {
-  animation-delay: 0.24s;
+.feed-item.reveal:nth-child(3) {
+  transition-delay: 0.12s;
+}
+
+.feed-item.reveal:nth-child(4) {
+  transition-delay: 0.18s;
+}
+
+.feed-item.reveal:nth-child(5) {
+  transition-delay: 0.24s;
 }
 
 @media (prefers-reduced-motion: reduce) {
   * {
     animation: none !important;
     transition: none !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
   }
 }
 
