@@ -1,0 +1,12 @@
+{
+  "title": "Liad",
+  "tagline": "Welcome to my personal website.",
+  "author": "Liad",
+  "email": "hello@example.com",
+  "nav": [
+    { "text": "Home", "url": "/" },
+    { "text": "Work", "url": "/work/" },
+    { "text": "About", "url": "/about/" },
+    { "text": "Contact", "url": "/contact/" }
+  ]
+}
