@@ -1,8 +1,8 @@
 :root {
-  --color-bg: #fafafa;
+  --color-bg: #faf9f7;
   --color-surface: #ffffff;
   --color-text: #1a1a1a;
-  --color-text-muted: #5a5a5a;
+  --color-text-muted: #6b6b6b;
   --color-header-bg: #1f1f2e;
   --color-header-text: #ffffff;
   /* placeholder — confirm brand colors with Liad */
@@ -10,8 +10,13 @@
   /* placeholder — used sparingly (hover states, badges) */
   --color-accent-2: #2f7d6b;
   --font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
-  --max-width-content: 640px;
-  --space-section: 2rem;
+  --max-width-content: 720px;
+  --space-section: 2.5rem;
+  --radius: 10px;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 body {
@@ -20,10 +25,12 @@ body {
   padding: 0;
   color: var(--color-text);
   background-color: var(--color-bg);
+  line-height: 1.6;
 }
 
 a {
   color: var(--color-accent);
+  transition: color 0.15s ease;
 }
 
 a:hover {
@@ -31,15 +38,22 @@ a:hover {
 }
 
 header {
-  padding: 3rem 1.5rem;
+  padding: 3.5rem 1.5rem 2.5rem;
   text-align: center;
   background-color: var(--color-header-bg);
   color: var(--color-header-text);
+  border-bottom: 4px solid var(--color-accent);
 }
 
 header h1 {
   margin: 0 0 0.5rem;
-  font-size: 2.5rem;
+  font-size: 2.75rem;
+  letter-spacing: -0.02em;
+}
+
+header p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.75);
 }
 
 header a {
@@ -49,58 +63,123 @@ header a {
 .site-nav ul {
   list-style: none;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-  gap: 1.5rem;
+  gap: 0.5rem;
   padding: 0;
-  margin: 1.5rem 0 0;
+  margin: 2rem 0 0;
 }
 
 .site-nav a {
+  display: inline-block;
   text-decoration: none;
   font-weight: 600;
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+  transition: background-color 0.15s ease, color 0.15s ease;
 }
 
 .site-nav a:hover {
-  color: var(--color-accent);
+  background-color: rgba(255, 255, 255, 0.12);
+  color: var(--color-header-text);
 }
 
 main {
   max-width: var(--max-width-content);
   margin: 0 auto;
-  padding: 2rem 1.5rem;
+  padding: 3rem 1.5rem;
 }
 
 section {
   margin-bottom: var(--space-section);
 }
 
+section > h2,
+.page > h2 {
+  font-size: 1.5rem;
+  display: inline-block;
+  padding-bottom: 0.35rem;
+  border-bottom: 3px solid var(--color-accent);
+  margin-bottom: 1.25rem;
+}
+
+.intro p {
+  font-size: 1.15rem;
+  color: var(--color-text-muted);
+}
+
+.button {
+  display: inline-block;
+  background-color: var(--color-accent);
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.6rem 1.25rem;
+  border-radius: 999px;
+  transition: background-color 0.15s ease, transform 0.15s ease;
+}
+
+.button:hover {
+  background-color: var(--color-accent-2);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
 .feed-list {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 .feed-item {
   background-color: var(--color-surface);
-  border-radius: 8px;
-  padding: 1.5rem;
+  border-radius: var(--radius);
+  padding: 1.75rem;
   margin-bottom: 1.5rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.feed-item:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
 }
 
 .feed-item h2,
 .feed-item h3 {
   margin-top: 0;
+  margin-bottom: 0.25rem;
+  font-size: 1.2rem;
 }
 
 .feed-item__date {
   color: var(--color-text-muted);
-  font-size: 0.85rem;
-  margin-top: -0.5rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin: 0 0 1rem;
+}
+
+.feed-item__caption {
+  margin-bottom: 0;
+}
+
+.feed-item__body {
+  color: var(--color-text-muted);
+  margin-top: 0.75rem;
 }
 
 .embed {
   display: block;
   margin: 1rem 0;
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.embed-podcast iframe {
+  display: block;
+  border-radius: var(--radius);
 }
 
 .embed-instagram {
@@ -110,7 +189,7 @@ section {
 
 .embed-instagram img {
   width: 100%;
-  border-radius: 8px;
+  border-radius: var(--radius);
   display: block;
 }
 
@@ -123,7 +202,21 @@ section {
 
 footer {
   text-align: center;
-  padding: 1.5rem;
+  padding: 2rem 1.5rem;
   color: var(--color-text-muted);
-  font-size: 0.9rem;
+  font-size: 0.85rem;
+}
+
+@media (max-width: 480px) {
+  header h1 {
+    font-size: 2.1rem;
+  }
+
+  main {
+    padding: 2rem 1rem;
+  }
+
+  .feed-item {
+    padding: 1.25rem;
+  }
 }

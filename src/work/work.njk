@@ -4,6 +4,7 @@ layout: layouts/base.njk
 permalink: /work/
 ---
 <section class="feed">
+  <h2>{{ title }}</h2>
   <ul class="feed-list">
     {%- for entry in collections.feed %}
     {%- set title = entry.data.title %}
