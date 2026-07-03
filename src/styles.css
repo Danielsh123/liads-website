@@ -204,14 +204,6 @@ section > h2::after,
   --card-gradient: var(--gradient-photo);
 }
 
-.feed-item:nth-child(odd) {
-  --rotate: -1deg;
-}
-
-.feed-item:nth-child(even) {
-  --rotate: 1deg;
-}
-
 .feed-item.reveal.is-visible {
   --ty: 0px;
   --scale: 1;
@@ -221,8 +213,17 @@ section > h2::after,
 .feed-item.reveal.is-visible:hover {
   --ty: -4px;
   --scale: 1.015;
-  --rotate: 0deg;
   box-shadow: 0 10px 24px rgba(32, 26, 43, 0.1);
+}
+
+.feed-item:nth-child(odd):hover,
+.feed-item.reveal.is-visible:nth-child(odd):hover {
+  --rotate: -1deg;
+}
+
+.feed-item:nth-child(even):hover,
+.feed-item.reveal.is-visible:nth-child(even):hover {
+  --rotate: 1deg;
 }
 
 .feed-item h2,
