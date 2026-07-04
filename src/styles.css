@@ -113,6 +113,10 @@ main {
   padding: 3rem 1.5rem;
 }
 
+.page {
+  display: flow-root;
+}
+
 .about-photo {
   display: block;
   width: 220px;
