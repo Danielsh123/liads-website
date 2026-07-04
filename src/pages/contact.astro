@@ -1,0 +1,10 @@
+---
+import PageLayout from "../layouts/PageLayout.astro";
+import { site } from "../config/site";
+---
+<PageLayout title="צור קשר" bodyClass="page-contact" showMiniContact={false}>
+  <div class="contact-cta">
+    <p>נשמח לשמוע ממך!</p>
+    <a class="button" href={`mailto:${site.email}`}>{site.email}</a>
+  </div>
+</PageLayout>

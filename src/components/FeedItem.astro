@@ -1,0 +1,50 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { render } from "astro:content";
+import { readableDate } from "../lib/date";
+import { EMBED_COMPONENTS } from "./embeds/registry";
+
+interface Props {
+  entry: CollectionEntry<"work">;
+  /** Heading tag for the item title (feed lists vary h2/h3 by context). */
+  headingLevel?: "h2" | "h3";
+  /** Render the markdown body under the item. */
+  showBody?: boolean;
+  /** Standalone entry page: render as <article> with the --single modifier. */
+  single?: boolean;
+}
+const {
+  entry,
+  headingLevel = "h2",
+  showBody = false,
+  single = false,
+} = Astro.props;
+
+const { title, date, embedType, caption } = entry.data;
+const Embed = EMBED_COMPONENTS[embedType] as any;
+const Heading = headingLevel;
+const Wrapper = single ? "article" : "li";
+const { Content } = showBody ? await render(entry) : { Content: null };
+
+const classes = [
+  "feed-item",
+  `feed-item--${embedType}`,
+  single ? "feed-item--single" : "",
+  "reveal",
+]
+  .filter(Boolean)
+  .join(" ");
+---
+<Wrapper class={classes}>
+  <Heading>{title}</Heading>
+  <p class="feed-item__date">{readableDate(date)}</p>
+  <Embed data={entry.data} />
+  {caption && <p class="feed-item__caption">{caption}</p>}
+  {
+    showBody && Content && (
+      <div class="feed-item__body">
+        <Content />
+      </div>
+    )
+  }
+</Wrapper>
