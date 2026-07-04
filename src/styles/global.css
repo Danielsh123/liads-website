@@ -405,6 +405,16 @@ section > h2::after,
   overflow: hidden;
 }
 
+/* Clips just the media (image) — not the badge, which is anchored to the card.
+   Its own compositing layer keeps the rounded corners when the image zooms on
+   hover (Chrome otherwise drops border-radius clipping on transformed children). */
+.embed-media {
+  display: block;
+  border-radius: var(--radius);
+  overflow: hidden;
+  transform: translateZ(0);
+}
+
 .embed-podcast iframe {
   display: block;
   width: 100%;

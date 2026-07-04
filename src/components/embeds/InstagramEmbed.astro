@@ -9,6 +9,8 @@ const { data } = Astro.props;
 ---
 <a class="embed embed-instagram" href={data.sourceUrl} target="_blank" rel="noopener">
   <span class="badge badge-instagram">📸 אינסטגרם</span>
-  <img src={withBase(data.thumbnail ?? "")} alt={data.title} loading="lazy" />
+  <span class="embed-media">
+    <img src={withBase(data.thumbnail ?? "")} alt={data.title} loading="lazy" />
+  </span>
   <span class="embed-instagram__label">צפו באינסטגרם &larr;</span>
 </a>

@@ -9,5 +9,7 @@ const { data } = Astro.props;
 ---
 <div class="embed embed-photo">
   <span class="badge badge-photo">📷 רגע</span>
-  <img src={withBase(data.photo ?? "")} alt={data.title} loading="lazy" />
+  <span class="embed-media">
+    <img src={withBase(data.photo ?? "")} alt={data.title} loading="lazy" />
+  </span>
 </div>
