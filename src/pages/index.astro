@@ -1,0 +1,25 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import FeedList from "../components/FeedList.astro";
+import { withBase } from "../lib/url";
+
+const entries = (await getCollection("work")).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime(),
+);
+const latest = entries.slice(0, 3);
+---
+<BaseLayout title="בית" bodyClass="page-home">
+  <section class="intro reveal">
+    <p>
+      היי, אני ליעד. כאן אני משתפת קטעים ממה שאני עושה – פרקי פודקאסט, פוסטים
+      באינסטגרם ועוד.
+    </p>
+  </section>
+
+  <section class="feed-preview">
+    <h2 class="reveal">עדכונים אחרונים</h2>
+    <FeedList entries={latest} headingLevel="h3" />
+    <p><a class="button" href={withBase("/work/")}>לכל העבודות &larr;</a></p>
+  </section>
+</BaseLayout>

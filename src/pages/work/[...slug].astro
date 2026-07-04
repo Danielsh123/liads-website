@@ -1,0 +1,19 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import FeedItem from "../../components/FeedItem.astro";
+
+export const getStaticPaths = (async () => {
+  const entries = await getCollection("work");
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}) satisfies GetStaticPaths;
+
+const { entry } = Astro.props;
+---
+<BaseLayout title={entry.data.title} bodyClass="page-entry">
+  <FeedItem entry={entry} headingLevel="h2" single={true} showBody={true} />
+</BaseLayout>

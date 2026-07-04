@@ -1,0 +1,13 @@
+---
+import PageLayout from "../layouts/PageLayout.astro";
+import { withBase } from "../lib/url";
+---
+<PageLayout title="אודות" bodyClass="page-about">
+  <img
+    class="about-photo"
+    src={withBase("/assets/liad/about-portrait.jpeg")}
+    alt="ליעד"
+  />
+  <p>האתר הזה עדיין בבנייה – תוכן אמיתי עליי יגיע בקרוב!</p>
+  <p>בינתיים: אני ליעד, וכאן אני אשתף עוד על מי שאני ומה שאני עושה.</p>
+</PageLayout>

@@ -1,0 +1,18 @@
+---
+import type { CollectionEntry } from "astro:content";
+import FeedItem from "./FeedItem.astro";
+
+interface Props {
+  entries: CollectionEntry<"work">[];
+  headingLevel?: "h2" | "h3";
+  showBody?: boolean;
+}
+const { entries, headingLevel = "h2", showBody = false } = Astro.props;
+---
+<ul class="feed-list">
+  {
+    entries.map((entry) => (
+      <FeedItem entry={entry} headingLevel={headingLevel} showBody={showBody} />
+    ))
+  }
+</ul>

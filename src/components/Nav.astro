@@ -1,0 +1,22 @@
+---
+import { site } from "../config/site";
+import { withBase } from "../lib/url";
+
+const current = Astro.url.pathname;
+---
+<nav class="site-nav">
+  <ul>
+    {
+      site.nav.map((item) => {
+        const href = withBase(item.url);
+        return (
+          <li>
+            <a class={current === href ? "is-active" : ""} href={href}>
+              {item.text}
+            </a>
+          </li>
+        );
+      })
+    }
+  </ul>
+</nav>
