@@ -189,7 +189,8 @@ section > h2::after,
   .page-about .about-photo {
     float: right;
     margin: 0 0 1rem 2rem;
-    shape-outside: circle(50%);
+    shape-outside: circle(50%) content-box;
+    shape-margin: 1.25rem;
   }
 }
 
