@@ -3,7 +3,9 @@ import { site } from "../config/site";
 import { withBase } from "../lib/url";
 import Nav from "../components/Nav.astro";
 import MiniContact from "../components/MiniContact.astro";
-import "../styles/global.css";
+// Canonical stylesheet lives in the design library (single source of truth
+// shared with Claude Design). Editing it there restyles the live site directly.
+import "../../design/styles/global.css";
 
 interface Props {
   title: string;

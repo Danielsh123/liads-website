@@ -1,0 +1,29 @@
+<!-- @dsCard group="Feed cards" name="Feed card — photo" subtitle="Gold→teal border, photo badge, full-bleed image" -->
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Feed card — photo</title>
+    <link rel="stylesheet" href="../styles/global.css" />
+    <style>
+      .wrap { padding: 2rem 1.5rem; max-width: 560px; }
+      /* Photo placeholder so the card has no external image dependency. */
+      .photo { aspect-ratio: 3 / 2; background: radial-gradient(circle at 70% 25%, #fff7, transparent 55%), var(--gradient-photo); display: grid; place-items: center; font-size: 3rem; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <ul class="feed-list">
+        <li class="feed-item feed-item--photo">
+          <h2>רגע מהבמה</h2>
+          <p class="feed-item__date">5 ביולי 2026</p>
+          <div class="embed embed-photo">
+            <span class="badge badge-photo">📷 רגע</span>
+            <span class="embed-media"><span class="photo">📷</span></span>
+          </div>
+          <p class="feed-item__caption">אור, קהל, ורגע אחד ששווה לעצור בו.</p>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

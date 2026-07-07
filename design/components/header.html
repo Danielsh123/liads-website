@@ -1,0 +1,31 @@
+<!-- @dsCard group="Components" name="Site header" subtitle="Avatar + title + tagline + nav banner" -->
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Site header</title>
+    <link rel="stylesheet" href="../styles/global.css" />
+    <style>
+      /* Avatar placeholder so the card is self-contained (no image dependency). */
+      .header-avatar {
+        display: inline-block;
+        background: radial-gradient(circle at 35% 30%, #fff6, transparent 60%), var(--gradient-warm);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <span class="header-avatar"></span>
+      <h1>ליעד</h1>
+      <p>ברוכים הבאים לאתר האישי שלי.</p>
+      <nav class="site-nav">
+        <ul>
+          <li><a class="is-active" href="#">בית</a></li>
+          <li><a href="#">עבודות</a></li>
+          <li><a href="#">אודות</a></li>
+          <li><a href="#">צור קשר</a></li>
+        </ul>
+      </nav>
+    </header>
+  </body>
+</html>

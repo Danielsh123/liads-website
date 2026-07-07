@@ -1,0 +1,32 @@
+<!-- @dsCard group="Foundations" name="Buttons" subtitle="Primary pill button + on-gradient variant" -->
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Buttons</title>
+    <link rel="stylesheet" href="../styles/global.css" />
+    <style>
+      .wrap { padding: 2.5rem 2rem; display: flex; flex-direction: column; gap: 2rem; align-items: flex-start; }
+      .row { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+      .on-gradient { background: var(--gradient-primary); padding: 1.5rem; border-radius: var(--radius); }
+      .label { font-family: ui-monospace, Menlo, monospace; font-size: .72rem; color: var(--color-text-muted); direction: ltr; text-align: right; margin-bottom: .6rem; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div>
+        <div class="label">.button · primary pill (gradient fill)</div>
+        <div class="row">
+          <a class="button" href="#">צור קשר</a>
+          <a class="button" href="#">hello@example.com</a>
+        </div>
+      </div>
+      <div>
+        <div class="label">.contact-cta .button · white-on-gradient variant</div>
+        <div class="on-gradient contact-cta" style="margin:0;padding:1.5rem">
+          <a class="button" href="#">דברו איתי</a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

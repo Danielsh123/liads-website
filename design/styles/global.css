@@ -1,3 +1,11 @@
+/* -----------------------------------------------------------------------------
+   CANONICAL site stylesheet — single source of truth.
+
+   Imported by the live site (src/layouts/BaseLayout.astro) AND used by every
+   design preview card in this folder. Because it is one shared file, any change
+   made in Claude Design flows straight to the live site on the next design-sync
+   pull — no copying. Edit tokens/rules here (or via Claude Design), not elsewhere.
+----------------------------------------------------------------------------- */
 :root {
   --color-bg: #fdf7f0;
   --color-surface: #ffffff;
@@ -456,78 +464,4 @@ footer {
   font-size: 0.85rem;
   border-top: 4px solid transparent;
   border-image: var(--gradient-warm) 1;
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(14px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-header {
-  animation: fadeInUp 0.5s ease both;
-}
-
-.reveal {
-  opacity: 0;
-  transform: translateY(28px) scale(0.98);
-  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.reveal.is-visible {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-}
-
-/* Higher specificity than .reveal / .reveal.is-visible above, so the
-   tilt/hover/reveal composition via --ty/--scale/--rotate always wins. */
-.feed-item.reveal {
-  transform: translateY(var(--ty)) scale(var(--scale)) rotate(var(--rotate));
-}
-
-.feed-item.reveal:nth-child(2) {
-  transition-delay: 0.06s;
-}
-
-.feed-item.reveal:nth-child(3) {
-  transition-delay: 0.12s;
-}
-
-.feed-item.reveal:nth-child(4) {
-  transition-delay: 0.18s;
-}
-
-.feed-item.reveal:nth-child(5) {
-  transition-delay: 0.24s;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation: none !important;
-    transition: none !important;
-  }
-
-  .reveal {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-@media (max-width: 480px) {
-  header h1 {
-    font-size: 2.3rem;
-  }
-
-  main {
-    padding: 2rem 1rem;
-  }
-
-  .feed-item {
-    padding: 1.25rem;
-  }
 }

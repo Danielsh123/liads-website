@@ -10,7 +10,7 @@
  *   2. add its fields to the schema in src/content.config.ts,
  *   3. create src/components/embeds/YoutubeEmbed.astro,
  *   4. register it in src/components/embeds/registry.ts,
- *   5. (optional) add a `.feed-item--youtube` gradient in global.css.
+ *   5. (optional) add a `.feed-item--youtube` gradient in design/styles/global.css.
  */
 export const EMBED_TYPES = ["podcast", "instagram", "photo"] as const;
 

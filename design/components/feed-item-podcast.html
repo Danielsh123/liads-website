@@ -1,0 +1,35 @@
+<!-- @dsCard group="Feed cards" name="Feed card — podcast" subtitle="Purple→teal border, podcast badge, player embed" -->
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Feed card — podcast</title>
+    <link rel="stylesheet" href="../styles/global.css" />
+    <style>
+      .wrap { padding: 2rem 1.5rem; max-width: 560px; }
+      /* Faux Spotify player so the card has no external iframe dependency. */
+      .faux-player { height: 152px; border-radius: var(--radius); background: linear-gradient(120deg, #1a1440, #2b1f5e); display: flex; align-items: center; gap: 1rem; padding: 0 1.25rem; color: #fff; }
+      .faux-player .art { width: 96px; height: 96px; border-radius: 8px; background: var(--gradient-podcast); flex: none; }
+      .faux-player .meta .t { font-weight: 800; }
+      .faux-player .meta .s { color: #ffffffb0; font-size: .85rem; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <ul class="feed-list">
+        <li class="feed-item feed-item--podcast">
+          <h2>פרק פודקאסט לדוגמה</h2>
+          <p class="feed-item__date">3 ביולי 2026</p>
+          <div class="embed embed-podcast">
+            <span class="badge badge-podcast">🎙 פודקאסט</span>
+            <div class="faux-player">
+              <span class="art"></span>
+              <span class="meta"><div class="t">שם הפרק</div><div class="s">הפודקאסט של ליעד · 32 דק׳</div></span>
+            </div>
+          </div>
+          <p class="feed-item__caption">שיחה קצרה על מוזיקה, במה, והדרך.</p>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

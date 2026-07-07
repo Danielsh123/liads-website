@@ -1,0 +1,36 @@
+<!-- @dsCard group="Foundations" name="Typography" subtitle="Headings, body, muted, section underline" -->
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Typography</title>
+    <link rel="stylesheet" href="../styles/global.css" />
+    <style>
+      .wrap { padding: 2.5rem 2rem; max-width: 640px; }
+      .label { font-family: ui-monospace, Menlo, monospace; font-size: .72rem; color: var(--color-text-muted); direction: ltr; text-align: right; margin: 1.75rem 0 .25rem; }
+      .label:first-child { margin-top: 0; }
+      .display { font-size: 3rem; font-weight: 800; line-height: 1.1; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <p class="label">header h1 · 3rem / 800</p>
+      <div class="display">ליעד</div>
+
+      <p class="label">section h2 · 1.6rem (gradient underline)</p>
+      <section><h2>עבודות אחרונות</h2></section>
+
+      <p class="label">intro · 1.2rem / muted</p>
+      <div class="intro"><p>ברוכים הבאים לאתר האישי שלי — מקום קטן לאסוף בו רגעים, פרויקטים והופעות.</p></div>
+
+      <p class="label">body · 1rem / 1.6</p>
+      <p>טקסט גוף רגיל. הפונט הוא ה־system stack, והשורות נושמות ב־line-height של 1.6 כדי שיהיה נוח לקרוא בעברית.</p>
+
+      <p class="label">muted body</p>
+      <p style="color:var(--color-text-muted)">טקסט משני, שקט יותר, לתיאורים ומטא־נתונים.</p>
+
+      <p class="label">link</p>
+      <p><a href="#">קישור לדוגמה</a> בתוך פסקה.</p>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,48 @@
+<!-- @dsCard group="Foundations" name="Colors & gradients" subtitle="Palette tokens + brand gradients" -->
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Colors &amp; gradients</title>
+    <link rel="stylesheet" href="../styles/global.css" />
+    <style>
+      .wrap { padding: 2rem 1.5rem; }
+      .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem; }
+      .swatch { border-radius: var(--radius); overflow: hidden; box-shadow: 0 2px 8px rgba(32,26,43,.08); background: var(--color-surface); }
+      .swatch .chip { height: 84px; }
+      .swatch .meta { padding: .55rem .7rem; }
+      .swatch .name { font-weight: 700; font-size: .9rem; }
+      .swatch .val { color: var(--color-text-muted); font-size: .78rem; font-family: ui-monospace, "SF Mono", Menlo, monospace; direction: ltr; text-align: right; }
+      h3 { font-size: 1rem; margin: 1.75rem 0 .75rem; }
+      h3:first-child { margin-top: 0; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <h3>Core palette</h3>
+      <div class="grid">
+        <div class="swatch"><div class="chip" style="background:var(--color-bg)"></div><div class="meta"><div class="name">bg</div><div class="val">#fdf7f0</div></div></div>
+        <div class="swatch"><div class="chip" style="background:var(--color-surface);border-bottom:1px solid #eee"></div><div class="meta"><div class="name">surface</div><div class="val">#ffffff</div></div></div>
+        <div class="swatch"><div class="chip" style="background:var(--color-text)"></div><div class="meta"><div class="name">text</div><div class="val">#201a2b</div></div></div>
+        <div class="swatch"><div class="chip" style="background:var(--color-text-muted)"></div><div class="meta"><div class="name">text-muted</div><div class="val">#6b6376</div></div></div>
+      </div>
+
+      <h3>Accents</h3>
+      <div class="grid">
+        <div class="swatch"><div class="chip" style="background:var(--color-accent)"></div><div class="meta"><div class="name">accent</div><div class="val">#ff4d6d</div></div></div>
+        <div class="swatch"><div class="chip" style="background:var(--color-accent-2)"></div><div class="meta"><div class="name">accent-2</div><div class="val">#6c5ce7</div></div></div>
+        <div class="swatch"><div class="chip" style="background:var(--color-accent-3)"></div><div class="meta"><div class="name">accent-3</div><div class="val">#ffb100</div></div></div>
+        <div class="swatch"><div class="chip" style="background:var(--color-accent-4)"></div><div class="meta"><div class="name">accent-4</div><div class="val">#00c2a8</div></div></div>
+      </div>
+
+      <h3>Gradients</h3>
+      <div class="grid">
+        <div class="swatch"><div class="chip" style="background:var(--gradient-primary)"></div><div class="meta"><div class="name">primary</div><div class="val">accent-2 → accent</div></div></div>
+        <div class="swatch"><div class="chip" style="background:var(--gradient-warm)"></div><div class="meta"><div class="name">warm</div><div class="val">accent · 3 · 4</div></div></div>
+        <div class="swatch"><div class="chip" style="background:var(--gradient-podcast)"></div><div class="meta"><div class="name">podcast</div><div class="val">accent-2 → 4</div></div></div>
+        <div class="swatch"><div class="chip" style="background:var(--gradient-instagram)"></div><div class="meta"><div class="name">instagram</div><div class="val">accent → 3</div></div></div>
+        <div class="swatch"><div class="chip" style="background:var(--gradient-photo)"></div><div class="meta"><div class="name">photo</div><div class="val">accent-3 → 4</div></div></div>
+      </div>
+    </div>
+  </body>
+</html>
