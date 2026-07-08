@@ -398,11 +398,11 @@ function studioHtml(t: Dict): string {
 
       ${flashHtml}
 
-      <div style="display:grid;grid-template-columns:${gridCols};gap:1.6rem;align-items:start;">
+      <div class="adm-grid" style="display:grid;grid-template-columns:${gridCols};gap:1.6rem;align-items:start;">
         <div style="background:var(--color-surface);border-radius:22px;padding:1.8rem;box-shadow:0 4px 18px rgba(27,36,52,0.06);border:1px solid rgba(27,36,52,0.05);">
           <h2 style="margin:0 0 1.3rem;font-size:1.15rem;font-weight:900;display:flex;align-items:center;gap:0.5rem;">${isIg ? "📸" : "🎙"} ${esc(editing ? t.editEntry : t.newEntry)}</h2>
 
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.9rem;margin-bottom:1.15rem;">
+          <div class="adm-duo" style="display:grid;grid-template-columns:1fr 1fr;gap:0.9rem;margin-bottom:1.15rem;">
             <div>
               <label style="display:block;font-weight:800;font-size:0.88rem;margin-bottom:0.4rem;">${esc(t.lblTitleHe)} <span style="color:var(--err);">*</span></label>
               <input id="f-title-he" class="adm-field${err.titleHe ? " adm-field--err" : ""}" dir="rtl" value="${esc(f.titleHe)}" placeholder="${esc(t.phTitleHe)}">
@@ -421,7 +421,7 @@ function studioHtml(t: Dict): string {
             ${err.month ? `<p style="color:var(--err);font-size:0.8rem;font-weight:700;margin:0.35rem 0 0;">${esc(err.month)}</p>` : ""}
           </div>
 
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.9rem;margin-bottom:1.15rem;">
+          <div class="adm-duo" style="display:grid;grid-template-columns:1fr 1fr;gap:0.9rem;margin-bottom:1.15rem;">
             <div>
               <label style="display:block;font-weight:800;font-size:0.88rem;margin-bottom:0.4rem;">${esc(t.lblCaptionHe)} <span style="color:var(--err);">*</span></label>
               <textarea id="f-caption-he" class="adm-field${err.captionHe ? " adm-field--err" : ""}" dir="rtl" placeholder="${esc(t.phCaptionHe)}" rows="2" style="resize:vertical;">${esc(f.captionHe)}</textarea>
@@ -512,7 +512,7 @@ function podcastFieldsHtml(t: Dict): string {
   const f = state.form;
   const err = state.errors;
   return `
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.9rem;margin-bottom:1.15rem;">
+  <div class="adm-duo" style="display:grid;grid-template-columns:1fr 1fr;gap:0.9rem;margin-bottom:1.15rem;">
     <div>
       <label style="display:block;font-weight:800;font-size:0.88rem;margin-bottom:0.4rem;">${esc(t.lblEp)} <span style="color:var(--err);">*</span> (עב)</label>
       <input id="f-ep-he" class="adm-field${err.ep ? " adm-field--err" : ""}" dir="rtl" value="${esc(f.epHe)}" placeholder="${esc(t.phEp)}">
@@ -523,7 +523,7 @@ function podcastFieldsHtml(t: Dict): string {
     </div>
   </div>
   ${err.ep ? `<p style="color:var(--err);font-size:0.8rem;font-weight:700;margin:-0.8rem 0 1.15rem;">${esc(err.ep)}</p>` : ""}
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.9rem;margin-bottom:1.15rem;">
+  <div class="adm-duo" style="display:grid;grid-template-columns:1fr 1fr;gap:0.9rem;margin-bottom:1.15rem;">
     <div>
       <label style="display:block;font-weight:800;font-size:0.88rem;margin-bottom:0.4rem;">${esc(t.lblLength)} <span style="color:var(--err);">*</span> (עב)</label>
       <input id="f-length-he" class="adm-field${err.length ? " adm-field--err" : ""}" dir="rtl" value="${esc(f.lengthHe)}" placeholder="${esc(t.phLength)}">

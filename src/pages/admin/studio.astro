@@ -14,7 +14,14 @@ import "../../../design/styles/global.css";
       rel="stylesheet"
     />
     <title>הסטודיו של ליעד — Admin</title>
-    <style>
+    <!--
+      is:global is required: the entire studio UI is built at runtime by
+      adminStudio.ts, so its elements never carry Astro's scoping attribute.
+      Without is:global these `.adm-*` rules (and the responsive breakpoints
+      below) are scoped away and never match, leaving the fields unstyled and
+      the two-column grids uncollapsible on narrow screens.
+    -->
+    <style is:global>
       /*
         Local-only tokens: this admin tool needs a couple of status colors
         that the public site's design has no use for. Adding them here keeps
@@ -64,6 +71,20 @@ import "../../../design/styles/global.css";
         100% { opacity: 1; transform: scale(1) translateY(0); }
       }
       a { text-decoration: none; }
+
+      /*
+        Responsive collapse. The layout is built with inline styles in
+        adminStudio.ts, so these media queries override the two-up grids with
+        !important once there isn't room for them: the form/preview split
+        stacks below ~900px (e.g. a half-width window), and the paired
+        Hebrew/English fields stack below ~560px (phones).
+      */
+      @media (max-width: 900px) {
+        .adm-grid { grid-template-columns: 1fr !important; }
+      }
+      @media (max-width: 560px) {
+        .adm-duo { grid-template-columns: 1fr !important; }
+      }
     </style>
   </head>
   <body>
