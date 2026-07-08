@@ -1,0 +1,36 @@
+<!-- @dsCard group="Landing sections" name="Contact form" subtitle="'Spread the love' gradient panel with form" -->
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Contact form</title>
+    <link rel="stylesheet" href="../styles/global.css" />
+  </head>
+  <body style="background: var(--color-bg);">
+    <section style="max-width:var(--max-width-content);margin:0 auto;padding:2.5rem 1.5rem;">
+      <div style="background:radial-gradient(circle at 15% 20%,rgba(255,255,255,0.18),transparent 42%),var(--gradient-primary);border-radius:28px;padding:clamp(2rem,5vw,3.5rem);color:#fff;box-shadow:0 20px 50px rgba(43,163,227,0.28);">
+        <div style="text-align:center;max-width:46ch;margin:0 auto 2rem;">
+          <h2 style="margin:0 0 0.75rem;font-size:clamp(1.7rem,4vw,2.4rem);font-weight:900;color:#fff;width:auto;display:block;">בואו נפיץ טוב ביחד</h2>
+          <p style="margin:0;font-size:1.1rem;color:rgba(255,255,255,0.92);line-height:1.6;">רשויות, בתי ספר ובני נוער — רוצים להשיק את אתגר המעשים הטובים בעיר שלכם? כתבו לי.</p>
+        </div>
+        <form style="max-width:640px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;">
+          <label style="display:flex;flex-direction:column;gap:0.4rem;font-weight:700;font-size:0.9rem;">
+            <span>שם מלא</span>
+            <input type="text" placeholder="איך קוראים לכם?" style="font-family:inherit;font-size:1rem;padding:0.8rem 1rem;border-radius:12px;border:none;background:rgba(255,255,255,0.95);color:var(--color-text);outline:none;" />
+          </label>
+          <label style="display:flex;flex-direction:column;gap:0.4rem;font-weight:700;font-size:0.9rem;">
+            <span>אימייל</span>
+            <input type="email" placeholder="you@example.com" style="font-family:inherit;font-size:1rem;padding:0.8rem 1rem;border-radius:12px;border:none;background:rgba(255,255,255,0.95);color:var(--color-text);outline:none;" />
+          </label>
+          <label style="display:flex;flex-direction:column;gap:0.4rem;font-weight:700;font-size:0.9rem;grid-column:1/-1;">
+            <span>הרעיון שלכם</span>
+            <textarea rows="3" placeholder="ספרו לי איך תרצו לשתף פעולה…" style="font-family:inherit;font-size:1rem;padding:0.8rem 1rem;border-radius:12px;border:none;background:rgba(255,255,255,0.95);color:var(--color-text);outline:none;resize:vertical;"></textarea>
+          </label>
+          <div style="grid-column:1/-1;text-align:center;margin-top:0.5rem;">
+            <button type="button" class="button" style="background:#fff;color:var(--color-accent);font-size:1.05rem;padding:0.85rem 2rem;border:none;cursor:pointer;font-family:inherit;">בואו ניצור טוב ביחד</button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </body>
+</html>

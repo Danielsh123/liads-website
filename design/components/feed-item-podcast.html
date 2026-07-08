@@ -1,33 +1,32 @@
-<!-- @dsCard group="Feed cards" name="Feed card — podcast" subtitle="Purple→teal border, podcast badge, player embed" -->
+<!-- @dsCard group="Feed cards" name="Feed card — podcast" subtitle="Sky-blue border, podcast badge, Spotify-style player" -->
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
   <head>
     <meta charset="UTF-8" />
     <title>Feed card — podcast</title>
     <link rel="stylesheet" href="../styles/global.css" />
-    <style>
-      .wrap { padding: 2rem 1.5rem; max-width: 560px; }
-      /* Faux Spotify player so the card has no external iframe dependency. */
-      .faux-player { height: 152px; border-radius: var(--radius); background: linear-gradient(120deg, #1a1440, #2b1f5e); display: flex; align-items: center; gap: 1rem; padding: 0 1.25rem; color: #fff; }
-      .faux-player .art { width: 96px; height: 96px; border-radius: 8px; background: var(--gradient-podcast); flex: none; }
-      .faux-player .meta .t { font-weight: 800; }
-      .faux-player .meta .s { color: #ffffffb0; font-size: .85rem; }
-    </style>
   </head>
-  <body>
-    <div class="wrap">
+  <body style="background: var(--color-bg);">
+    <div style="padding:2rem 1.5rem;max-width:560px;">
       <ul class="feed-list">
         <li class="feed-item feed-item--podcast">
-          <h2>פרק פודקאסט לדוגמה</h2>
-          <p class="feed-item__date">3 ביולי 2026</p>
+          <span class="badge badge-podcast">🎙 פודקאסט</span>
+          <h3>מאהבת חינם לשנאת חינם — ובחזרה</h3>
+          <p class="feed-item__date">יולי 2024 · 28 דק׳</p>
           <div class="embed embed-podcast">
-            <span class="badge badge-podcast">🎙 פודקאסט</span>
-            <div class="faux-player">
-              <span class="art"></span>
-              <span class="meta"><div class="t">שם הפרק</div><div class="s">הפודקאסט של ליעד · 32 דק׳</div></span>
+            <div style="display:flex;align-items:center;gap:1rem;padding:1rem;border-radius:var(--radius);background:linear-gradient(120deg,#12233a,#1c3a5e);color:#fff;">
+              <span aria-hidden="true" style="width:88px;height:88px;border-radius:12px;flex:none;box-shadow:0 6px 16px rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:center;background:var(--gradient-podcast);font-size:2rem;">🎙</span>
+              <span style="flex:1;min-width:0;">
+                <span style="display:block;font-weight:800;font-size:1.02rem;line-height:1.3;">פרק 1 · הרעיון שמאחורי התנועה</span>
+                <span style="display:block;color:rgba(255,255,255,0.72);font-size:0.85rem;margin-top:0.15rem;">הפודקאסט של ליעד · 28 דק׳</span>
+                <span style="display:flex;align-items:center;gap:0.5rem;margin-top:0.7rem;">
+                  <span aria-hidden="true" style="width:34px;height:34px;border-radius:999px;background:#1ed760;display:inline-flex;align-items:center;justify-content:center;color:#0b1a10;font-size:0.95rem;">▶</span>
+                  <span aria-hidden="true" style="height:6px;flex:1;border-radius:999px;background:rgba(255,255,255,0.22);position:relative;overflow:hidden;"><span style="position:absolute;inset-inline-start:0;top:0;bottom:0;width:34%;background:#1ed760;border-radius:999px;"></span></span>
+                </span>
+              </span>
             </div>
           </div>
-          <p class="feed-item__caption">שיחה קצרה על מוזיקה, במה, והדרך.</p>
+          <p class="feed-item__caption">איך הופכים יום של שנאה ליום של אהבה, ולמה זה מתחיל בכל אחד מאיתנו.</p>
         </li>
       </ul>
     </div>

@@ -11,9 +11,11 @@ card index automatically (no manual registration needed).
 
 ```
 design/
-  styles/global.css        # mirror of src/styles/global.css (source of truth for card styling)
+  styles/global.css        # THE canonical stylesheet (imported by the live site)
   foundations/             # colors, typography, buttons
-  components/              # header, nav, feed cards (podcast/instagram/photo), mini-contact, contact CTA
+  components/              # sticky nav, landing hero, impact stats, pillar card,
+                           # journey timeline, contact form, feed cards (instagram/podcast),
+                           # mini-contact
 ```
 
 Cards are dependency-free: images (avatar, photos, Spotify player) are rendered as
@@ -32,8 +34,9 @@ The connection is an account-level authorization — it can't be set up from a f
 ## How design edits reach the live site
 
 `design/styles/global.css` is the **canonical, single source of truth** for the site's
-styling. The live site imports it directly (`src/layouts/BaseLayout.astro`), and every
-preview card in this folder uses it too. There is no separate copy.
+styling. The live site imports it directly (`src/layouts/LandingLayout.astro`), and every
+preview card in this folder uses it too. There is no separate copy — all shared tokens,
+animations (`ls-*` keyframes, `.ls-reveal`), nav, buttons, feed cards, and footer live here.
 
 So the flow is:
 
@@ -46,10 +49,12 @@ made in Claude Design lands in this one file and restyles the real site on the n
 
 ### What does *not* auto-propagate
 
-Component **markup** is split by design: the site renders `.astro` components
-(`src/components/*.astro`) while the design project holds static `.html` cards. Both use
-the same CSS classes (`.feed-item`, `.badge`, `.button`, `.site-nav`, …), so **styling**
-changes flow automatically — but if you change a component's **HTML structure** in Claude
-Design, that markup change still has to be ported into the matching `.astro` file by hand
-(or ask Claude to do it). The cards and the `.astro` components are kept structurally in
-sync manually; the stylesheet is shared automatically.
+Component **markup** is split by design: the live site renders three Astro pages
+(`src/pages/index.astro`, `instagram.astro`, `podcasts.astro`) sharing
+`src/layouts/LandingLayout.astro`, while the design project holds static `.html` cards.
+Both use the same CSS classes and tokens (`.feed-item`, `.badge`, `.button`, `.site-nav`,
+`.ls-reveal`, `--gradient-*`, …), so **styling** changes flow automatically — but if you
+change a component's **HTML structure** in Claude Design, that markup change still has to
+be ported into the matching page/layout by hand (or ask Claude to do it). The cards and
+the Astro markup are kept structurally in sync manually; the stylesheet is shared
+automatically.

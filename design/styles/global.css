@@ -1,7 +1,7 @@
 /* -----------------------------------------------------------------------------
    CANONICAL site stylesheet — single source of truth.
 
-   Imported by the live site (src/layouts/BaseLayout.astro) AND used by every
+   Imported by the live site (src/layouts/LandingLayout.astro) AND used by every
    design preview card in this folder. Because it is one shared file, any change
    made in Claude Design flows straight to the live site on the next design-sync
    pull — no copying. Edit tokens/rules here (or via Claude Design), not elsewhere.
@@ -21,11 +21,10 @@
   --gradient-warm: linear-gradient(90deg, var(--color-accent), var(--color-accent-3), var(--color-accent-4));
   --gradient-podcast: linear-gradient(135deg, var(--color-accent-2), var(--color-accent-4));
   --gradient-instagram: linear-gradient(135deg, var(--color-accent), var(--color-accent-3));
-  --gradient-photo: linear-gradient(135deg, var(--color-accent-3), var(--color-accent-4));
   --font-family-base: "Heebo", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
-  --max-width-content: 720px;
+  --max-width-content: 1080px;
   --space-section: 2.5rem;
-  --radius: 14px;
+  --radius: 20px;
 }
 
 * {
@@ -43,6 +42,7 @@ body {
 
 a {
   color: var(--color-accent);
+  text-decoration: none;
   transition: color 0.15s ease;
 }
 
@@ -50,216 +50,87 @@ a:hover {
   color: var(--color-accent-2);
 }
 
-header {
-  position: relative;
-  overflow: hidden;
-  padding: 4rem 1.5rem 2.75rem;
-  text-align: center;
-  color: #ffffff;
-  background:
-    radial-gradient(circle at 15% 20%, rgba(255, 255, 255, 0.18), transparent 40%),
-    radial-gradient(circle at 85% 75%, rgba(255, 255, 255, 0.14), transparent 45%),
-    var(--gradient-primary);
-}
-
-.header-avatar {
-  width: 120px;
-  height: 120px;
-  object-fit: cover;
-  border-radius: 999px;
-  border: 4px solid rgba(255, 255, 255, 0.85);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
-  margin-bottom: 1rem;
-}
-
-header h1 {
-  margin: 0 0 0.5rem;
-  font-size: 3rem;
-  font-weight: 800;
-}
-
-header p {
-  margin: 0;
-  color: rgba(255, 255, 255, 0.85);
-  font-size: 1.05rem;
-}
-
-header a {
-  color: #ffffff;
-}
-
-.site-nav ul {
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 0;
-  margin: 2rem 0 0;
-}
-
+/* -----------------------------------------------------------------------------
+   Sticky landing nav (LandingLayout). Links + language toggle sit on the cream
+   bar; hover tints them with the brand blue.
+----------------------------------------------------------------------------- */
 .site-nav a {
   display: inline-block;
   text-decoration: none;
   font-weight: 700;
-  padding: 0.45rem 1.1rem;
+  padding: 0.45rem 0.9rem;
   border-radius: 999px;
   transition: background-color 0.15s ease, transform 0.15s ease;
 }
 
 .site-nav a:hover {
-  background-color: rgba(255, 255, 255, 0.18);
+  background-color: rgba(43, 163, 227, 0.1);
   transform: translateY(-1px);
 }
 
 .site-nav a.is-active {
-  background-color: rgba(255, 255, 255, 0.28);
+  background-color: rgba(43, 163, 227, 0.14);
+  color: var(--color-accent-2);
 }
 
-main {
-  max-width: var(--max-width-content);
-  margin: 0 auto;
-  padding: 3rem 1.5rem;
+button[data-lang-toggle]:hover {
+  background: var(--color-accent-2) !important;
+  color: #fff !important;
 }
 
-.page {
-  display: flow-root;
+/* -----------------------------------------------------------------------------
+   Motion — floating hero portrait, organic blob morph, reveal-on-scroll.
+   Consumed by the landing pages via inline `animation:` and the .ls-* classes.
+----------------------------------------------------------------------------- */
+@keyframes ls-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
 }
 
-.about-photo {
-  display: block;
-  width: 220px;
-  height: 220px;
-  object-fit: cover;
-  border-radius: 999px;
-  margin: 0 auto 2rem;
-  border: 4px solid var(--color-surface);
-  box-shadow: 0 10px 28px rgba(32, 26, 43, 0.18);
+@keyframes ls-rise {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-section {
-  margin-bottom: var(--space-section);
+@keyframes ls-blob {
+  0%, 100% { border-radius: 42% 58% 55% 45% / 48% 42% 58% 52%; }
+  50% { border-radius: 55% 45% 42% 58% / 55% 58% 42% 45%; }
 }
 
-section > h2,
-.page > h2,
-.feed > h2 {
+.ls-reveal { opacity: 0; }
+.ls-reveal.ls-in { animation: ls-rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+/* Pillar cards lift on hover. */
+.ls-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(27, 36, 52, 0.14);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [style*="ls-float"],
+  [style*="ls-blob"] { animation: none !important; }
+  .ls-reveal { opacity: 1; }
+  .ls-reveal.ls-in { animation: none; }
+}
+
+/* -----------------------------------------------------------------------------
+   Page headers (hero + section headers). Each header sets its own background
+   and padding inline; these are the shared defaults.
+----------------------------------------------------------------------------- */
+header {
+  position: relative;
+  overflow: hidden;
+  color: #ffffff;
+}
+
+section > h2 {
   position: relative;
   font-size: 1.6rem;
-  display: block;
-  width: fit-content;
-  padding-bottom: 0.6rem;
-  margin-bottom: 1.5rem;
 }
 
-section > h2::after,
-.page > h2::after,
-.feed > h2::after {
-  content: "";
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  width: 56px;
-  height: 5px;
-  border-radius: 999px;
-  background: var(--gradient-warm);
-}
-
-.intro p {
-  font-size: 1.2rem;
-  color: var(--color-text-muted);
-}
-
-.page-home .intro {
-  position: relative;
-}
-
-.page-home .intro::before {
-  content: "";
-  position: absolute;
-  top: -50px;
-  right: -40px;
-  width: 220px;
-  height: 220px;
-  background: radial-gradient(circle, rgba(255, 139, 61, 0.16), transparent 70%);
-  pointer-events: none;
-}
-
-/* Work: soft pinboard-style backdrop behind the same card list */
-.page-work {
-  background-image: radial-gradient(circle, rgba(32, 26, 43, 0.08) 1px, transparent 1px);
-  background-size: 20px 20px;
-}
-
-.page-work main {
-  background-color: rgba(255, 255, 255, 0.6);
-  border-radius: 24px;
-  margin-top: 1.5rem;
-  margin-bottom: 1.5rem;
-}
-
-/* About: side-by-side portrait + bio on wider screens, with a soft color glow */
-@media (min-width: 640px) {
-  .page-about .about-photo {
-    float: right;
-    margin: 0 0 1rem 2rem;
-    shape-outside: circle(50%) content-box;
-    shape-margin: 1.25rem;
-  }
-}
-
-.page-about .about-photo {
-  box-shadow:
-    0 10px 28px rgba(32, 26, 43, 0.18),
-    -14px 14px 0 10px rgba(255, 139, 61, 0.15),
-    14px -14px 0 10px rgba(43, 163, 227, 0.15);
-}
-
-/* Contact: bold gradient CTA panel instead of a plain link */
-.contact-cta {
-  background: var(--gradient-primary);
-  border-radius: var(--radius);
-  padding: 2.5rem 1.5rem;
-  text-align: center;
-  color: #ffffff;
-  margin-top: 1.5rem;
-}
-
-.contact-cta p {
-  font-size: 1.3rem;
-  font-weight: 700;
-  margin: 0 0 1.25rem;
-}
-
-.contact-cta .button {
-  background: #ffffff;
-  color: var(--color-accent-2);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
-}
-
-.contact-cta .button:hover {
-  color: var(--color-accent);
-}
-
-/* Mini "get in touch" segment, shown at the end of every page except Contact */
-.mini-contact {
-  text-align: center;
-  max-width: var(--max-width-content);
-  margin: 1rem auto 3rem;
-  padding: 2rem 1.5rem;
-  border: 3px solid transparent;
-  border-radius: var(--radius);
-  background:
-    linear-gradient(var(--color-surface), var(--color-surface)) padding-box,
-    var(--gradient-warm) border-box;
-}
-
-.mini-contact__text {
-  font-weight: 700;
-  font-size: 1.1rem;
-  margin: 0 0 1rem;
-}
-
+/* -----------------------------------------------------------------------------
+   Buttons — primary pill, used for CTAs and the mini-contact.
+----------------------------------------------------------------------------- */
 .button {
   display: inline-block;
   background: var(--gradient-primary);
@@ -278,6 +149,9 @@ section > h2::after,
   box-shadow: 0 10px 22px rgba(255, 139, 61, 0.42);
 }
 
+/* -----------------------------------------------------------------------------
+   Feed cards — Instagram + podcast lists (gradient border, corner badge).
+----------------------------------------------------------------------------- */
 .feed-list {
   list-style: none;
   padding: 0;
@@ -290,44 +164,20 @@ section > h2::after,
   border-radius: var(--radius);
   padding: 1.75rem;
   margin-bottom: 1.5rem;
-  box-shadow: 0 2px 8px rgba(32, 26, 43, 0.06);
+  box-shadow: 0 2px 8px rgba(27, 36, 52, 0.06);
   background:
     linear-gradient(var(--color-surface), var(--color-surface)) padding-box,
     var(--card-gradient, var(--gradient-podcast)) border-box;
-  --ty: 28px;
-  --scale: 0.98;
-  --rotate: 0deg;
-  transition: box-shadow 0.2s ease, transform 0.2s ease, opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
 
 .feed-item--instagram {
   --card-gradient: var(--gradient-instagram);
 }
 
-.feed-item--photo {
-  --card-gradient: var(--gradient-photo);
-}
-
-.feed-item.reveal.is-visible {
-  --ty: 0px;
-  --scale: 1;
-}
-
-.feed-item:hover,
-.feed-item.reveal.is-visible:hover {
-  --ty: -4px;
-  --scale: 1.015;
-  box-shadow: 0 10px 24px rgba(32, 26, 43, 0.1);
-}
-
-.feed-item:nth-child(odd):hover,
-.feed-item.reveal.is-visible:nth-child(odd):hover {
-  --rotate: -1deg;
-}
-
-.feed-item:nth-child(even):hover,
-.feed-item.reveal.is-visible:nth-child(even):hover {
-  --rotate: 1deg;
+.feed-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(27, 36, 52, 0.1);
 }
 
 .feed-item h2,
@@ -347,11 +197,6 @@ section > h2::after,
   margin-bottom: 0;
 }
 
-.feed-item__body {
-  color: var(--color-text-muted);
-  margin-top: 0.75rem;
-}
-
 .feed-item::before {
   content: "";
   position: absolute;
@@ -363,17 +208,8 @@ section > h2::after,
   pointer-events: none;
 }
 
-.feed-item--podcast::before {
-  content: "🎙";
-}
-
-.feed-item--instagram::before {
-  content: "📸";
-}
-
-.feed-item--photo::before {
-  content: "📷";
-}
+.feed-item--podcast::before { content: "🎙"; }
+.feed-item--instagram::before { content: "📸"; }
 
 .badge {
   position: absolute;
@@ -386,26 +222,11 @@ section > h2::after,
   border-radius: 999px;
   color: #ffffff;
   transform: rotate(-4deg);
-  box-shadow: 0 4px 10px rgba(32, 26, 43, 0.18);
+  box-shadow: 0 4px 10px rgba(27, 36, 52, 0.18);
 }
 
-.badge-podcast {
-  background: var(--gradient-podcast);
-}
-
-.badge-instagram {
-  background: var(--gradient-instagram);
-}
-
-.badge-photo {
-  background: var(--gradient-photo);
-}
-
-.embed-photo img {
-  width: 100%;
-  border-radius: var(--radius);
-  display: block;
-}
+.badge-podcast { background: var(--gradient-podcast); }
+.badge-instagram { background: var(--gradient-instagram); }
 
 .embed {
   display: block;
@@ -414,20 +235,12 @@ section > h2::after,
   overflow: hidden;
 }
 
-/* Clips just the media (image) — not the badge, which is anchored to the card.
-   Its own compositing layer keeps the rounded corners when the image zooms on
-   hover (Chrome otherwise drops border-radius clipping on transformed children). */
+/* Own compositing layer keeps rounded corners when the image zooms on hover. */
 .embed-media {
   display: block;
   border-radius: var(--radius);
   overflow: hidden;
   transform: translateZ(0);
-}
-
-.embed-podcast iframe {
-  display: block;
-  width: 100%;
-  border-radius: var(--radius);
 }
 
 .embed-instagram {
@@ -439,15 +252,10 @@ section > h2::after,
   width: 100%;
   border-radius: var(--radius);
   display: block;
-}
-
-.embed-instagram img,
-.embed-photo img {
   transition: transform 0.3s ease;
 }
 
-.feed-item:hover .embed-instagram img,
-.feed-item:hover .embed-photo img {
+.feed-item:hover .embed-instagram img {
   transform: scale(1.06);
 }
 
@@ -456,6 +264,27 @@ section > h2::after,
   margin-top: 0.5rem;
   color: var(--color-accent);
   font-weight: 700;
+}
+
+/* -----------------------------------------------------------------------------
+   Mini "get in touch" segment at the foot of the feed pages.
+----------------------------------------------------------------------------- */
+.mini-contact {
+  text-align: center;
+  max-width: var(--max-width-content);
+  margin: 1rem auto 3rem;
+  padding: 2rem 1.5rem;
+  border: 3px solid transparent;
+  border-radius: var(--radius);
+  background:
+    linear-gradient(var(--color-surface), var(--color-surface)) padding-box,
+    var(--gradient-warm) border-box;
+}
+
+.mini-contact__text {
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin: 0 0 1rem;
 }
 
 footer {

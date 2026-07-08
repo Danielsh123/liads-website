@@ -85,42 +85,6 @@ const year = new Date().getFullYear();
       </footer>
     </div>
 
-    <style is:global>
-      /* Landing pages run a little wider and rounder than the text pages. */
-      .ls-root {
-        --max-width-content: 1080px;
-        --radius: 20px;
-      }
-      .ls-root a { text-decoration: none; }
-      .ls-root .site-nav a:hover { background-color: rgba(43, 163, 227, 0.1); }
-      .ls-root button[data-lang-toggle]:hover {
-        background: var(--color-accent-2);
-        color: #fff;
-      }
-
-      @keyframes ls-float {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-14px); }
-      }
-      @keyframes ls-rise {
-        from { opacity: 0; transform: translateY(24px); }
-        to { opacity: 1; transform: translateY(0); }
-      }
-      @keyframes ls-blob {
-        0%, 100% { border-radius: 42% 58% 55% 45% / 48% 42% 58% 52%; }
-        50% { border-radius: 55% 45% 42% 58% / 55% 58% 42% 45%; }
-      }
-      .ls-reveal { opacity: 0; }
-      .ls-reveal.ls-in { animation: ls-rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-
-      @media (prefers-reduced-motion: reduce) {
-        .ls-root [style*="ls-float"],
-        .ls-root [style*="ls-blob"] { animation: none !important; }
-        .ls-reveal { opacity: 1; }
-        .ls-reveal.ls-in { animation: none; }
-      }
-    </style>
-
     <script>
       // ---- Language toggle (he ⇄ en) -------------------------------------
       // Hebrew is server-rendered; each translatable node carries data-en

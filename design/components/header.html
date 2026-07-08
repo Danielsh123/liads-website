@@ -1,31 +1,28 @@
-<!-- @dsCard group="Components" name="Site header" subtitle="Avatar + title + tagline + nav banner" -->
+<!-- @dsCard group="Components" name="Landing hero" subtitle="Gradient hero — kicker, title, bio, CTA, blob portrait" -->
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
   <head>
     <meta charset="UTF-8" />
-    <title>Site header</title>
+    <title>Landing hero</title>
     <link rel="stylesheet" href="../styles/global.css" />
-    <style>
-      /* Avatar placeholder so the card is self-contained (no image dependency). */
-      .header-avatar {
-        display: inline-block;
-        background: radial-gradient(circle at 35% 30%, #fff6, transparent 60%), var(--gradient-warm);
-      }
-    </style>
   </head>
-  <body>
-    <header>
-      <span class="header-avatar"></span>
-      <h1>ליעד</h1>
-      <p>ברוכים הבאים לאתר האישי שלי.</p>
-      <nav class="site-nav">
-        <ul>
-          <li><a class="is-active" href="#">בית</a></li>
-          <li><a href="#">עבודות</a></li>
-          <li><a href="#">אודות</a></li>
-          <li><a href="#">צור קשר</a></li>
-        </ul>
-      </nav>
+  <body style="background: var(--color-bg);">
+    <header style="position:relative;overflow:hidden;padding:clamp(3rem,7vw,6rem) 1.5rem clamp(4rem,8vw,7rem);color:#fff;background:radial-gradient(circle at 12% 18%,rgba(255,255,255,0.22),transparent 42%),radial-gradient(circle at 88% 82%,rgba(255,255,255,0.16),transparent 46%),var(--gradient-primary);">
+      <span aria-hidden="true" style="position:absolute;top:8%;left:6%;width:120px;height:120px;background:rgba(255,255,255,0.14);animation:ls-blob 12s ease-in-out infinite;"></span>
+      <div style="position:relative;max-width:var(--max-width-content);margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(2rem,5vw,4rem);align-items:center;">
+        <div>
+          <span style="display:inline-block;font-weight:800;font-size:0.9rem;letter-spacing:0.06em;text-transform:uppercase;background:rgba(255,255,255,0.2);padding:0.4rem 1rem;border-radius:999px;margin-bottom:1.25rem;">אהבת חינם · כאן ועכשיו</span>
+          <h1 style="margin:0 0 1.1rem;font-size:clamp(2.4rem,6vw,4.2rem);font-weight:900;line-height:1.05;">אהבת חינם, כאן ועכשיו.</h1>
+          <p style="margin:0 0 2rem;font-size:clamp(1.05rem,2vw,1.3rem);color:rgba(255,255,255,0.92);max-width:36ch;line-height:1.6;">אני ליעד שפירא — מנהיגת נוער בת 15 שהופכת מעשים טובים קטנים לתנועה ארצית.</p>
+          <a class="button" href="#" style="background:#fff;color:var(--color-accent);font-size:1.05rem;padding:0.85rem 1.75rem;">הצטרפו לאתגר המעשים הטובים</a>
+        </div>
+        <div style="display:flex;justify-content:center;">
+          <div style="position:relative;width:min(300px,80vw);aspect-ratio:1;animation:ls-float 7s ease-in-out infinite;">
+            <span aria-hidden="true" style="position:absolute;inset:-6%;background:var(--gradient-warm);animation:ls-blob 14s ease-in-out infinite;box-shadow:0 24px 60px rgba(27,36,52,0.28);"></span>
+            <div style="position:absolute;inset:0;overflow:hidden;animation:ls-blob 14s ease-in-out infinite;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.15);font-size:3rem;">🌻</div>
+          </div>
+        </div>
+      </div>
     </header>
   </body>
 </html>
