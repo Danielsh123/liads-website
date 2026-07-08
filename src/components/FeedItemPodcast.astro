@@ -1,0 +1,27 @@
+---
+import type { Episode } from "../data/content";
+
+interface Props {
+  episode: Episode;
+}
+const { episode: ep } = Astro.props;
+---
+<li class="feed-item feed-item--podcast ls-reveal">
+  <span class="badge badge-podcast">🎙 <span data-en="Podcast">פודקאסט</span></span>
+  <h3 data-en={ep.title.en}>{ep.title.he}</h3>
+  <p class="feed-item__date"><span data-en={ep.date.en}>{ep.date.he}</span> · <span data-en={ep.length.en}>{ep.length.he}</span></p>
+  <div class="embed embed-podcast">
+    <div style="display:flex;align-items:center;gap:1rem;padding:1rem;border-radius:var(--radius);background:linear-gradient(120deg,#12233a,#1c3a5e);color:#fff;">
+      <span aria-hidden="true" style="width:88px;height:88px;border-radius:12px;overflow:hidden;flex:none;box-shadow:0 6px 16px rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:center;background:var(--gradient-podcast);font-size:2rem;">🎙</span>
+      <span style="flex:1;min-width:0;">
+        <span data-en={ep.ep.en} style="display:block;font-weight:800;font-size:1.02rem;line-height:1.3;">{ep.ep.he}</span>
+        <span style="display:block;color:rgba(255,255,255,0.72);font-size:0.85rem;margin-top:0.15rem;"><span data-en="Liad's Podcast">הפודקאסט של ליעד</span> · <span data-en={ep.length.en}>{ep.length.he}</span></span>
+        <span style="display:flex;align-items:center;gap:0.5rem;margin-top:0.7rem;">
+          <span aria-hidden="true" style="width:34px;height:34px;border-radius:999px;background:#1ed760;display:inline-flex;align-items:center;justify-content:center;color:#0b1a10;font-size:0.95rem;">▶</span>
+          <span aria-hidden="true" style="height:6px;flex:1;border-radius:999px;background:rgba(255,255,255,0.22);position:relative;overflow:hidden;"><span style="position:absolute;inset-inline-start:0;top:0;bottom:0;width:34%;background:#1ed760;border-radius:999px;"></span></span>
+        </span>
+      </span>
+    </div>
+  </div>
+  <p class="feed-item__caption" data-en={ep.caption.en}>{ep.caption.he}</p>
+</li>

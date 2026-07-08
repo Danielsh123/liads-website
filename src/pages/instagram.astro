@@ -1,22 +1,16 @@
 ---
 import LandingLayout from "../layouts/LandingLayout.astro";
 import type { LandingNavLink } from "../layouts/LandingLayout.astro";
+import FeedItemInstagram from "../components/FeedItemInstagram.astro";
+import MiniContact from "../components/MiniContact.astro";
 import { withBase } from "../lib/url";
+import { instagramPosts, instagramMiniContact } from "../data/content";
 
 const navLinks: LandingNavLink[] = [
   { href: withBase("/"), label: "בית", en: "Home" },
   { href: withBase("/instagram/"), label: "אינסטגרם", en: "Instagram", active: true },
   { href: withBase("/podcasts/"), label: "פודקאסטים", en: "Podcasts" },
   { href: `${withBase("/")}#contact`, label: "צור קשר", en: "Contact" },
-];
-
-// Feed content. Swap `link` for the real post URL and drop a screenshot in
-// place of the gradient placeholder thumbnail when ready.
-const posts = [
-  { title: { he: "אתגר המעשים הטובים · תשעה באב", en: "Good Deeds Challenge · Tisha B'Av" }, date: { he: "יולי 2024", en: "July 2024" }, link: "#", caption: { he: "יום שלם של אהבת חינם ברמת גן — מאות מתנדבים, אלפי מעשים טובים.", en: "A full day of senseless love in Ramat Gan — hundreds of volunteers, thousands of good deeds." } },
-  { title: { he: "ביקור בבית האבות המאומץ", en: "Visiting our adopted nursing home" }, date: { he: "מאי 2024", en: "May 2024" }, link: "#", caption: { he: "החיוכים של סבתות וסבים הם הדלק הכי טוב שיש.", en: "The smiles of grandmas and grandpas are the best fuel there is." } },
-  { title: { he: "בת מצווה לכל נערה", en: "A Bat Mitzvah for every girl" }, date: { he: "מרץ 2024", en: "March 2024" }, link: "#", caption: { he: "עיצוב שיער לנערות במצוקה — כל אחת נסיכה ביום שלה.", en: "Hair styling for girls in need — everyone's a princess on her day." } },
-  { title: { he: "נאום בכנסת", en: "Speaking at the Knesset" }, date: { he: "פברואר 2025", en: "February 2025" }, link: "#", img: withBase("/assets/liad/stage-moment.jpeg"), caption: { he: "קול של דור שבוחר לרפא. תודה על הבמה.", en: "The voice of a generation that chooses to heal. Thank you for the stage." } },
 ];
 ---
 <LandingLayout title="אינסטגרם" navLinks={navLinks}>
@@ -32,33 +26,13 @@ const posts = [
 
   <main style="max-width:var(--max-width-content);margin:0 auto;padding:clamp(2.5rem,5vw,4rem) 1.5rem 0;">
     <ul class="feed-list" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem;">
-      {
-        posts.map((post) => (
-          <li class="feed-item feed-item--instagram ls-reveal" style="margin-bottom:0;">
-            <span class="badge badge-instagram">📸 <span data-en="Instagram">אינסטגרם</span></span>
-            <h3 data-en={post.title.en}>{post.title.he}</h3>
-            <p class="feed-item__date" data-en={post.date.en}>{post.date.he}</p>
-            <a class="embed embed-instagram" href={post.link} target="_blank" rel="noopener">
-              <span class="embed-media" style="display:flex;align-items:center;justify-content:center;aspect-ratio:1;background:var(--gradient-instagram);">
-                {
-                  post.img ? (
-                    <img src={post.img} alt={post.title.he} loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;" />
-                  ) : (
-                    <span aria-hidden="true" style="font-size:3rem;opacity:0.6;">📸</span>
-                  )
-                }
-              </span>
-              <span class="embed-instagram__label" data-en="View on Instagram →">צפו באינסטגרם &larr;</span>
-            </a>
-            <p class="feed-item__caption" data-en={post.caption.en}>{post.caption.he}</p>
-          </li>
-        ))
-      }
+      {instagramPosts.map((post) => <FeedItemInstagram post={post} />)}
     </ul>
 
-    <section class="mini-contact" style="margin-top:2.5rem;">
-      <p class="mini-contact__text" data-en="Have a good moment to share? Tag me ✨">יש רגע טוב שתרצו לשתף? תייגו אותי ✨</p>
-      <a class="button" href={`${withBase("/")}#contact`} data-en="Let's connect">בואו נתחבר</a>
-    </section>
+    <MiniContact
+      text={instagramMiniContact.text}
+      ctaLabel={instagramMiniContact.ctaLabel}
+      ctaHref={instagramMiniContact.ctaHref}
+    />
   </main>
 </LandingLayout>

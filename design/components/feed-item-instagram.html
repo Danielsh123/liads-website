@@ -5,25 +5,11 @@
     <meta charset="UTF-8" />
     <title>Feed card — Instagram</title>
     <link rel="stylesheet" href="../styles/global.css" />
-    <style>
-      .wrap { padding: 2rem 1.5rem; max-width: 560px; }
-      /* Thumbnail placeholder so the card has no external image dependency. */
-      .thumb { aspect-ratio: 4 / 3; background: radial-gradient(circle at 30% 30%, #fff6, transparent 55%), var(--gradient-instagram); display: grid; place-items: center; font-size: 3rem; }
-    </style>
   </head>
-  <body>
-    <div class="wrap">
+  <body style="background: var(--color-bg);">
+    <div style="padding:2rem 1.5rem;max-width:560px;">
       <ul class="feed-list">
-        <li class="feed-item feed-item--instagram">
-          <h2>פוסט אינסטגרם לדוגמה</h2>
-          <p class="feed-item__date">4 ביולי 2026</p>
-          <a class="embed embed-instagram" href="#">
-            <span class="badge badge-instagram">📸 אינסטגרם</span>
-            <span class="embed-media"><span class="thumb">📸</span></span>
-            <span class="embed-instagram__label">צפו באינסטגרם &larr;</span>
-          </a>
-          <p class="feed-item__caption">רגע מהסטודיו השבוע.</p>
-        </li>
+        <li class="feed-item feed-item--instagram ls-reveal ls-in" style="margin-bottom:0;"><span class="badge badge-instagram">📸 <span data-en="Instagram">אינסטגרם</span></span><h3 data-en="Good Deeds Challenge · Tisha B'Av">אתגר המעשים הטובים · תשעה באב</h3><p class="feed-item__date" data-en="July 2024">יולי 2024</p><a class="embed embed-instagram" href="#" target="_blank" rel="noopener"><span class="embed-media" style="display:flex;align-items:center;justify-content:center;aspect-ratio:1;background:var(--gradient-instagram);"><span aria-hidden="true" style="font-size:3rem;opacity:0.6;">📸</span></span><span class="embed-instagram__label" data-en="View on Instagram →">צפו באינסטגרם &larr;</span></a><p class="feed-item__caption" data-en="A full day of senseless love in Ramat Gan — hundreds of volunteers, thousands of good deeds.">יום שלם של אהבת חינם ברמת גן — מאות מתנדבים, אלפי מעשים טובים.</p></li>
       </ul>
     </div>
   </body>

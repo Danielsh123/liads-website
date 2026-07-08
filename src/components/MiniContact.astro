@@ -1,0 +1,14 @@
+---
+import type { Bilingual } from "../data/content";
+
+interface Props {
+  text: Bilingual;
+  ctaLabel: Bilingual;
+  ctaHref: string;
+}
+const { text, ctaLabel, ctaHref } = Astro.props;
+---
+<section class="mini-contact" style="margin-top:2.5rem;">
+  <p class="mini-contact__text" data-en={text.en}>{text.he}</p>
+  <a class="button" href={ctaHref} data-en={ctaLabel.en}>{ctaLabel.he}</a>
+</section>
