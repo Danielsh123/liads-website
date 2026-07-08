@@ -1,16 +1,58 @@
 ---
-import { getCollection } from "astro:content";
-import BaseLayout from "../layouts/BaseLayout.astro";
-import FeedList from "../components/FeedList.astro";
+import LandingLayout from "../layouts/LandingLayout.astro";
+import type { LandingNavLink } from "../layouts/LandingLayout.astro";
+import { withBase } from "../lib/url";
 
-// Dedicated Instagram feed — same typed `work` collection, filtered to posts.
-const entries = (await getCollection("work"))
-  .filter((entry) => entry.data.embedType === "instagram")
-  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const navLinks: LandingNavLink[] = [
+  { href: withBase("/"), label: "בית", en: "Home" },
+  { href: withBase("/instagram/"), label: "אינסטגרם", en: "Instagram", active: true },
+  { href: withBase("/podcasts/"), label: "פודקאסטים", en: "Podcasts" },
+  { href: `${withBase("/")}#contact`, label: "צור קשר", en: "Contact" },
+];
+
+// Feed content. Swap `link` for the real post URL and drop a screenshot in
+// place of the gradient placeholder thumbnail when ready.
+const posts = [
+  { title: { he: "אתגר המעשים הטובים · תשעה באב", en: "Good Deeds Challenge · Tisha B'Av" }, date: { he: "יולי 2024", en: "July 2024" }, link: "#", caption: { he: "יום שלם של אהבת חינם ברמת גן — מאות מתנדבים, אלפי מעשים טובים.", en: "A full day of senseless love in Ramat Gan — hundreds of volunteers, thousands of good deeds." } },
+  { title: { he: "ביקור בבית האבות המאומץ", en: "Visiting our adopted nursing home" }, date: { he: "מאי 2024", en: "May 2024" }, link: "#", caption: { he: "החיוכים של סבתות וסבים הם הדלק הכי טוב שיש.", en: "The smiles of grandmas and grandpas are the best fuel there is." } },
+  { title: { he: "בת מצווה לכל נערה", en: "A Bat Mitzvah for every girl" }, date: { he: "מרץ 2024", en: "March 2024" }, link: "#", caption: { he: "עיצוב שיער לנערות במצוקה — כל אחת נסיכה ביום שלה.", en: "Hair styling for girls in need — everyone's a princess on her day." } },
+  { title: { he: "נאום בכנסת", en: "Speaking at the Knesset" }, date: { he: "פברואר 2025", en: "February 2025" }, link: "#", caption: { he: "קול של דור שבוחר לרפא. תודה על הבמה.", en: "The voice of a generation that chooses to heal. Thank you for the stage." } },
+];
 ---
-<BaseLayout title="אינסטגרם" bodyClass="page-work">
-  <section class="feed">
-    <h2 class="reveal">אינסטגרם</h2>
-    <FeedList entries={entries} headingLevel="h2" showBody={true} />
-  </section>
-</BaseLayout>
+<LandingLayout title="אינסטגרם" navLinks={navLinks}>
+  <!-- ===== Page header ===== -->
+  <header style="position:relative;overflow:hidden;padding:clamp(2.5rem,6vw,4.5rem) 1.5rem;color:#fff;text-align:center;background:radial-gradient(circle at 12% 18%,rgba(255,255,255,0.2),transparent 42%),var(--gradient-instagram);">
+    <span aria-hidden="true" style="position:absolute;top:-30px;right:8%;width:150px;height:150px;background:rgba(255,255,255,0.12);animation:ls-blob 15s ease-in-out infinite;"></span>
+    <div style="position:relative;max-width:640px;margin:0 auto;">
+      <span style="display:inline-block;font-weight:800;font-size:0.85rem;letter-spacing:0.06em;text-transform:uppercase;background:rgba(255,255,255,0.2);padding:0.4rem 1rem;border-radius:999px;margin-bottom:1rem;">📸 <span data-en="Instagram">אינסטגרם</span></span>
+      <h1 data-en="Liad's feed" style="margin:0 0 0.75rem;font-size:clamp(2rem,5vw,3.2rem);font-weight:900;line-height:1.1;">הפיד של ליעד</h1>
+      <p data-en="Moments from the field — good deeds, encounters, and hope. New followers are welcome to add a little more good to the world." style="margin:0;font-size:clamp(1rem,2vw,1.2rem);color:rgba(255,255,255,0.92);line-height:1.6;">רגעים מהשטח — מעשים טובים, מפגשים ותקווה. עוקבים חדשים מוזמנים לצרף עוד טוב לעולם.</p>
+    </div>
+  </header>
+
+  <main style="max-width:var(--max-width-content);margin:0 auto;padding:clamp(2.5rem,5vw,4rem) 1.5rem 0;">
+    <ul class="feed-list" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem;">
+      {
+        posts.map((post) => (
+          <li class="feed-item feed-item--instagram ls-reveal" style="margin-bottom:0;">
+            <span class="badge badge-instagram">📸 <span data-en="Instagram">אינסטגרם</span></span>
+            <h3 data-en={post.title.en}>{post.title.he}</h3>
+            <p class="feed-item__date" data-en={post.date.en}>{post.date.he}</p>
+            <a class="embed embed-instagram" href={post.link} target="_blank" rel="noopener">
+              <span class="embed-media" style="display:flex;align-items:center;justify-content:center;aspect-ratio:1;background:var(--gradient-instagram);">
+                <span aria-hidden="true" style="font-size:3rem;opacity:0.6;">📸</span>
+              </span>
+              <span class="embed-instagram__label" data-en="View on Instagram →">צפו באינסטגרם &larr;</span>
+            </a>
+            <p class="feed-item__caption" data-en={post.caption.en}>{post.caption.he}</p>
+          </li>
+        ))
+      }
+    </ul>
+
+    <section class="mini-contact" style="margin-top:2.5rem;">
+      <p class="mini-contact__text" data-en="Have a good moment to share? Tag me ✨">יש רגע טוב שתרצו לשתף? תייגו אותי ✨</p>
+      <a class="button" href={`${withBase("/")}#contact`} data-en="Let's connect">בואו נתחבר</a>
+    </section>
+  </main>
+</LandingLayout>

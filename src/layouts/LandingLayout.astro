@@ -1,0 +1,260 @@
+---
+import { withBase } from "../lib/url";
+import "../../design/styles/global.css";
+
+export interface LandingNavLink {
+  href: string;
+  /** Hebrew label (rendered by default). */
+  label: string;
+  /** English label, applied by the language toggle. */
+  en: string;
+  active?: boolean;
+}
+
+interface Props {
+  title: string;
+  description?: string;
+  /** Sticky-nav links for this page. */
+  navLinks: LandingNavLink[];
+}
+
+const {
+  title,
+  description = "אהבת חינם, כאן ועכשיו — ליעד שפירא",
+  navLinks,
+} = Astro.props;
+const year = new Date().getFullYear();
+---
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <title>{title} — ליעד שפירא</title>
+  </head>
+  <body>
+    <div
+      class="ls-root"
+      style="min-height:100vh;background:var(--color-bg);overflow-x:hidden;"
+    >
+      <!-- ===== Sticky nav ===== -->
+      <nav style="position:sticky;top:0;z-index:50;background:rgba(253,248,241,0.82);backdrop-filter:blur(12px);border-bottom:1px solid rgba(27,36,52,0.06);">
+        <div style="max-width:var(--max-width-content);margin:0 auto;padding:0.75rem 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;">
+          <a href={withBase("/")} style="display:flex;align-items:center;gap:0.6rem;font-weight:900;font-size:1.15rem;color:var(--color-text);">
+            <span aria-hidden="true" style="width:34px;height:34px;border-radius:999px;background:var(--gradient-primary);display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:1.05rem;box-shadow:0 4px 12px rgba(43,163,227,0.35);">♥</span>
+            <span data-en="Liad Shapira">ליעד שפירא</span>
+          </a>
+          <div class="site-nav" style="display:flex;align-items:center;gap:0.35rem;">
+            <ul style="margin:0;display:flex;flex-wrap:wrap;gap:0.25rem;list-style:none;padding:0;">
+              {
+                navLinks.map((link) => (
+                  <li>
+                    <a
+                      href={link.href}
+                      class={link.active ? "is-active" : ""}
+                      data-en={link.en}
+                      style="color:var(--color-text);font-size:0.95rem;"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))
+              }
+            </ul>
+            <button
+              type="button"
+              data-lang-toggle
+              style="cursor:pointer;font-family:inherit;font-weight:800;font-size:0.85rem;border:2px solid var(--color-accent-2);background:transparent;color:var(--color-accent-2);padding:0.35rem 0.85rem;border-radius:999px;transition:all 0.15s ease;"
+            >EN</button>
+          </div>
+        </div>
+      </nav>
+
+      <slot />
+
+      <footer style="text-align:center;">
+        <p style="margin:0;font-weight:700;color:var(--color-text);" data-en="Senseless love, here and now.">אהבת חינם, כאן ועכשיו.</p>
+        <p style="margin:0.4rem 0 0;" data-en={`© ${year} Liad Shapira · Built with love`}>© {year} ליעד שפירא · נבנה באהבה</p>
+      </footer>
+    </div>
+
+    <style is:global>
+      /* Landing pages run a little wider and rounder than the text pages. */
+      .ls-root {
+        --max-width-content: 1080px;
+        --radius: 20px;
+      }
+      .ls-root a { text-decoration: none; }
+      .ls-root .site-nav a:hover { background-color: rgba(43, 163, 227, 0.1); }
+      .ls-root button[data-lang-toggle]:hover {
+        background: var(--color-accent-2);
+        color: #fff;
+      }
+
+      @keyframes ls-float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-14px); }
+      }
+      @keyframes ls-rise {
+        from { opacity: 0; transform: translateY(24px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes ls-blob {
+        0%, 100% { border-radius: 42% 58% 55% 45% / 48% 42% 58% 52%; }
+        50% { border-radius: 55% 45% 42% 58% / 55% 58% 42% 45%; }
+      }
+      .ls-reveal { opacity: 0; }
+      .ls-reveal.ls-in { animation: ls-rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+      @media (prefers-reduced-motion: reduce) {
+        .ls-root [style*="ls-float"],
+        .ls-root [style*="ls-blob"] { animation: none !important; }
+        .ls-reveal { opacity: 1; }
+        .ls-reveal.ls-in { animation: none; }
+      }
+    </style>
+
+    <script>
+      // ---- Language toggle (he ⇄ en) -------------------------------------
+      // Hebrew is server-rendered; each translatable node carries data-en
+      // (and inputs data-en-ph). We cache the Hebrew on first switch and
+      // swap textContent/placeholder + document direction. Choice persists.
+      const LANG_KEY = "liad-lang";
+      const numberEls = () =>
+        Array.from(document.querySelectorAll<HTMLElement>("[data-count]"));
+
+      function currentLang(): "he" | "en" {
+        return document.documentElement.lang === "en" ? "en" : "he";
+      }
+
+      function renderCounts(lang: "he" | "en") {
+        const locale = lang === "he" ? "he-IL" : "en-US";
+        numberEls().forEach((el) => {
+          const cur = el.dataset.current !== undefined ? Number(el.dataset.current) : 0;
+          el.textContent = cur.toLocaleString(locale) + (el.dataset.suffix || "");
+        });
+      }
+
+      function applyLang(lang: "he" | "en") {
+        const he = lang === "he";
+        document.documentElement.lang = lang;
+        document.documentElement.dir = he ? "rtl" : "ltr";
+        document.querySelectorAll<HTMLElement>("[data-en]").forEach((el) => {
+          if (el.dataset.he === undefined) el.dataset.he = el.textContent || "";
+          el.textContent = he ? el.dataset.he : el.dataset.en || "";
+        });
+        document.querySelectorAll<HTMLElement>("[data-en-ph]").forEach((el) => {
+          if (el.dataset.hePh === undefined)
+            el.dataset.hePh = el.getAttribute("placeholder") || "";
+          el.setAttribute("placeholder", he ? el.dataset.hePh : el.dataset.enPh || "");
+        });
+        document
+          .querySelectorAll<HTMLElement>("[data-lang-toggle]")
+          .forEach((b) => (b.textContent = he ? "EN" : "עב"));
+        renderCounts(lang);
+        try {
+          localStorage.setItem(LANG_KEY, lang);
+        } catch {}
+      }
+
+      let stored: string | null = null;
+      try {
+        stored = localStorage.getItem(LANG_KEY);
+      } catch {}
+      if (stored === "en") applyLang("en");
+
+      document.querySelectorAll("[data-lang-toggle]").forEach((btn) =>
+        btn.addEventListener("click", () =>
+          applyLang(currentLang() === "he" ? "en" : "he"),
+        ),
+      );
+
+      // ---- Reveal on scroll ----------------------------------------------
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const lsReveals = Array.from(document.querySelectorAll<HTMLElement>(".ls-reveal"));
+      const feedReveals = Array.from(
+        document.querySelectorAll<HTMLElement>(".reveal:not(.ls-reveal)"),
+      );
+
+      if (reduce || !("IntersectionObserver" in window)) {
+        lsReveals.forEach((el) => el.classList.add("ls-in"));
+        feedReveals.forEach((el) => el.classList.add("is-visible"));
+      } else {
+        const obs = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+              const el = entry.target as HTMLElement;
+              el.classList.add(el.classList.contains("ls-reveal") ? "ls-in" : "is-visible");
+              obs.unobserve(el);
+            });
+          },
+          { threshold: 0.12, rootMargin: "0px 0px -40px 0px" },
+        );
+        lsReveals.forEach((el, i) => {
+          el.style.animationDelay = (i % 4) * 0.08 + "s";
+          obs.observe(el);
+        });
+        feedReveals.forEach((el) => obs.observe(el));
+      }
+
+      // ---- Count-up for impact stats -------------------------------------
+      function runCounts() {
+        const els = numberEls();
+        if (!els.length) return;
+        const targets = els.map((el) => Number(el.dataset.count));
+        if (reduce) {
+          els.forEach((el, i) => (el.dataset.current = String(targets[i])));
+          renderCounts(currentLang());
+          return;
+        }
+        const dur = 1400;
+        const start = performance.now();
+        const tick = (now: number) => {
+          const p = Math.min(1, (now - start) / dur);
+          const e = 1 - Math.pow(1 - p, 3);
+          els.forEach((el, i) => (el.dataset.current = String(Math.round(targets[i] * e))));
+          renderCounts(currentLang());
+          if (p < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      }
+
+      const impact = document.getElementById("impact");
+      if (impact && "IntersectionObserver" in window) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                runCounts();
+                io.disconnect();
+              }
+            });
+          },
+          { threshold: 0.3 },
+        );
+        io.observe(impact);
+      } else if (impact) {
+        runCounts();
+      }
+
+      // ---- Contact form: client-side success state -----------------------
+      const form = document.querySelector<HTMLFormElement>("[data-contact-form]");
+      if (form) {
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+          form.hidden = true;
+          const ok = document.querySelector<HTMLElement>("[data-form-success]");
+          if (ok) ok.hidden = false;
+        });
+      }
+    </script>
+  </body>
+</html>

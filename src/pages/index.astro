@@ -1,25 +1,237 @@
 ---
-import { getCollection } from "astro:content";
-import BaseLayout from "../layouts/BaseLayout.astro";
-import FeedList from "../components/FeedList.astro";
+import LandingLayout from "../layouts/LandingLayout.astro";
+import type { LandingNavLink } from "../layouts/LandingLayout.astro";
 import { withBase } from "../lib/url";
 
-const entries = (await getCollection("work")).sort(
-  (a, b) => b.data.date.getTime() - a.data.date.getTime(),
-);
-const latest = entries.slice(0, 3);
----
-<BaseLayout title="בית" bodyClass="page-home">
-  <section class="intro reveal">
-    <p>
-      היי, אני ליעד. כאן אני משתפת קטעים ממה שאני עושה – פרקי פודקאסט, פוסטים
-      באינסטגרם ועוד.
-    </p>
-  </section>
+const navLinks: LandingNavLink[] = [
+  { href: "#impact", label: "השפעה", en: "Impact" },
+  { href: "#pillars", label: "תחומי פעולה", en: "Pillars" },
+  { href: "#journey", label: "המסע", en: "Journey" },
+  { href: withBase("/instagram/"), label: "אינסטגרם", en: "Instagram" },
+  { href: withBase("/podcasts/"), label: "פודקאסטים", en: "Podcasts" },
+  { href: "#contact", label: "צור קשר", en: "Contact" },
+];
 
-  <section class="feed-preview">
-    <h2 class="reveal">עדכונים אחרונים</h2>
-    <FeedList entries={latest} headingLevel="h3" />
-    <p><a class="button" href={withBase("/work/")}>לכל העבודות &larr;</a></p>
-  </section>
-</BaseLayout>
+// Impact counters — count up from 0 to `target` when scrolled into view.
+const stats = [
+  { target: 15, suffix: "", label: { he: "שנים", en: "Years old" }, sub: { he: "הגיל הוא כוח העל שלי", en: "Age is my superpower" } },
+  { target: 1, suffix: "", label: { he: "פרס ארצי", en: "National award" }, sub: { he: "אות שבט 2024", en: "Ot Shavot 2024" } },
+  { target: 1000, suffix: "+", label: { he: "מעשים טובים", en: "Good deeds" }, sub: { he: "ההשפעה של הפרויקט", en: "Project impact" } },
+  { target: 2, suffix: "", label: { he: "בתי אבות מאומצים", en: "Adopted nursing homes" }, sub: { he: "עבודת שטח שורשית", en: "Grassroots work" } },
+];
+
+const gradOrange = "linear-gradient(90deg,#ff8b3d,#ffc247)";
+const gradBlue = "linear-gradient(90deg,#2ba3e3,#58c8ec)";
+const gradWarm = "linear-gradient(90deg,#ffc247,#ff8b3d,#2ba3e3)";
+
+const pillars = [
+  {
+    icon: "🕊️",
+    grad: gradOrange,
+    title: { he: "אתגר המעשים הטובים", en: "The Good Deeds Challenge" },
+    body: {
+      he: "הפיכת תשעה באב מיום של שנאת חינם ליום של אהבת חינם — יום שלם של מעשים טובים, בגיבוי עיריית רמת גן.",
+      en: "Reclaiming Tisha B'Av — turning a day of senseless hatred into a full day of senseless love and kindness, backed by the Ramat Gan municipality.",
+    },
+    tags: [
+      { he: "תשעה באב", en: "Tisha B'Av" },
+      { he: "רמת גן", en: "Ramat Gan" },
+      { he: "יוזמה ארצית", en: "National" },
+    ],
+  },
+  {
+    icon: "🤝",
+    grad: gradBlue,
+    title: { he: "נגד בריונות · למען הכלה", en: "Anti-Bullying & Inclusion" },
+    body: {
+      he: "שותפות עם 'ים של חברים' במאבק בביוש ברשת ובהשמעת קולם של 'הילדים הבלתי נראים' שאיש לא שם לב אליהם.",
+      en: "A partnership with 'Yam Shel Chaverim' fighting online shaming and amplifying the voices of the 'invisible children' no one notices.",
+    },
+    tags: [
+      { he: "ים של חברים", en: "Yam Shel Chaverim" },
+      { he: "אנטי-בריונות", en: "Anti-bullying" },
+      { he: "הכלה", en: "Inclusion" },
+    ],
+  },
+  {
+    icon: "🌷",
+    grad: gradWarm,
+    title: { he: "קהילה וחוסן", en: "Community & Resilience" },
+    body: {
+      he: "עיצוב שיער לנערות בת-מצווה במצוקה, אימוץ בתי אבות, והובלת חוסן נפשי לבני נוער בתקופת המלחמה.",
+      en: "Styling hair for underprivileged Bat Mitzvah girls, adopting elderly nursing homes, and leading youth resilience during wartime.",
+    },
+    tags: [
+      { he: "בת מצווה", en: "Bat Mitzvah" },
+      { he: "בתי אבות", en: "Nursing homes" },
+      { he: "חוסן", en: "Resilience" },
+    ],
+  },
+];
+
+const milestones = [
+  { when: { he: "גיל 8½", en: "Age 8½" }, title: { he: "הניצוץ הראשון", en: "The first spark" }, body: { he: "התחלתי לארגן מעשים טובים קטנים בשכונה — הרגע שבו הבנתי שאפשר לרתום אנשים לטוב.", en: "I began organizing small good deeds in my neighborhood — the moment I realized people can be rallied toward good." } },
+  { when: { he: "2021", en: "2021" }, title: { he: "אימוץ בית האבות הראשון", en: "First nursing home adopted" }, body: { he: "התחלתי לבקר קשישים באופן קבוע ולהביא אליהם נוער — בית שני, משפחה נוספת.", en: "Started visiting the elderly regularly and bringing youth along — a second home, another family." } },
+  { when: { he: "2022", en: "2022" }, title: { he: "יופי לכל נערה", en: "Beauty for every girl" }, body: { he: "יוזמת עיצוב שיער לנערות בת-מצווה במצוקה, שכל אחת תרגיש נסיכה ביום שלה.", en: "Launched hair-styling for underprivileged Bat Mitzvah girls, so each one feels like royalty on her day." } },
+  { when: { he: "2023", en: "2023" }, title: { he: "ים של חברים", en: "Yam Shel Chaverim" }, body: { he: "שותפות במאבק בביוש ברשת ובהשמעת קולם של הילדים שנשארים מאחור.", en: "Partnered in the fight against online shaming and gave voice to the children left behind." } },
+  { when: { he: "2024", en: "2024" }, title: { he: "אתגר המעשים הטובים · אות שבט", en: "Good Deeds Challenge · Ot Shavot" }, body: { he: "השקת האתגר הארצי בתשעה באב בגיבוי עיריית רמת גן, והובלת חוסן נוער במלחמה — והוענק לי אות שבט 2024.", en: "Launched the national challenge on Tisha B'Av backed by Ramat Gan, led youth resilience during the war — and was awarded Ot Shavot 2024." } },
+  { when: { he: "2025", en: "2025" }, title: { he: "מבמת הכנסת", en: "From the Knesset podium" }, body: { he: "נאמתי בכנסת וזכיתי בפרס החוסן הנוער — קול של דור שלם שבוחר באהבת חינם.", en: "Addressed the Knesset and received the Youth Resilience award — the voice of a generation choosing senseless love." } },
+];
+
+const roleOptions = [
+  { he: "רשות מקומית / עירייה", en: "Municipality" },
+  { he: "בית ספר / מוסד חינוכי", en: "School / educator" },
+  { he: "בן/בת נוער", en: "Young person" },
+  { he: "אחר", en: "Other" },
+];
+---
+<LandingLayout title="בית" navLinks={navLinks}>
+  <!-- ===== Hero ===== -->
+  <header id="top" style="position:relative;overflow:hidden;padding:clamp(3rem,7vw,6rem) 1.5rem clamp(4rem,8vw,7rem);color:#fff;background:radial-gradient(circle at 12% 18%,rgba(255,255,255,0.22),transparent 42%),radial-gradient(circle at 88% 82%,rgba(255,255,255,0.16),transparent 46%),var(--gradient-primary);">
+    <span aria-hidden="true" style="position:absolute;top:8%;left:6%;width:120px;height:120px;background:rgba(255,255,255,0.14);animation:ls-blob 12s ease-in-out infinite;"></span>
+    <span aria-hidden="true" style="position:absolute;bottom:10%;right:8%;width:180px;height:180px;background:rgba(255,255,255,0.1);animation:ls-blob 16s ease-in-out infinite reverse;"></span>
+    <div style="position:relative;max-width:var(--max-width-content);margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(2rem,5vw,4rem);align-items:center;">
+      <div>
+        <span data-en="Senseless Love · Here & Now" style="display:inline-block;font-weight:800;font-size:0.9rem;letter-spacing:0.06em;text-transform:uppercase;background:rgba(255,255,255,0.2);padding:0.4rem 1rem;border-radius:999px;margin-bottom:1.25rem;">אהבת חינם · כאן ועכשיו</span>
+        <h1 data-en="Senseless Love, Here and Now." style="margin:0 0 1.1rem;font-size:clamp(2.4rem,6vw,4.2rem);font-weight:900;line-height:1.05;text-wrap:balance;">אהבת חינם, כאן ועכשיו.</h1>
+        <p data-en="I'm Liad Shapira — a 15-year-old youth leader turning everyday kindness into a national movement. From the Knesset podium to nursing homes and classrooms, I believe senseless love can heal what senseless hatred once tore apart." style="margin:0 0 2rem;font-size:clamp(1.05rem,2vw,1.3rem);color:rgba(255,255,255,0.92);max-width:36ch;line-height:1.6;">אני ליעד שפירא — מנהיגת נוער בת 15 שהופכת מעשים טובים קטנים לתנועה ארצית. מבמת הכנסת ועד בתי אבות וכיתות, אני מאמינה שאהבת חינם יכולה לרפא את מה ששנאת חינם פירקה.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:0.9rem;align-items:center;">
+          <a class="button" href="#contact" data-en="Join the Good Deeds Challenge" style="background:#fff;color:var(--color-accent);font-size:1.05rem;padding:0.85rem 1.75rem;">הצטרפו לאתגר המעשים הטובים</a>
+          <a href="#pillars" data-en="Explore the pillars" style="color:#fff;font-weight:800;padding:0.85rem 0.5rem;border-bottom:2px solid rgba(255,255,255,0.5);border-radius:0;">גלו את תחומי הפעולה</a>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:center;">
+        <div style="position:relative;width:min(340px,80vw);aspect-ratio:1;animation:ls-float 7s ease-in-out infinite;">
+          <span aria-hidden="true" style="position:absolute;inset:-6%;background:var(--gradient-warm);animation:ls-blob 14s ease-in-out infinite;box-shadow:0 24px 60px rgba(27,36,52,0.28);"></span>
+          <div style="position:absolute;inset:0;overflow:hidden;animation:ls-blob 14s ease-in-out infinite;">
+            <img src={withBase("/assets/liad/header-avatar.jpeg")} alt="ליעד שפירא" style="width:100%;height:100%;object-fit:cover;display:block;" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main style="max-width:var(--max-width-content);margin:0 auto;padding:clamp(3rem,6vw,5rem) 1.5rem 0;">
+    <!-- ===== Impact numbers ===== -->
+    <section id="impact" style="margin-bottom:clamp(3.5rem,7vw,6rem);">
+      <div style="text-align:center;margin-bottom:2.25rem;">
+        <h2 data-en="The numbers behind the movement" style="display:inline-block;width:auto;font-size:clamp(1.6rem,3.5vw,2.2rem);">המספרים מאחורי התנועה</h2>
+        <p data-en="What begins in one heart reaches thousands." style="color:var(--color-text-muted);font-size:1.1rem;margin:0.5rem 0 0;">מה שמתחיל בלב אחד, מגיע לאלפים.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1.25rem;">
+        {
+          stats.map((stat) => (
+            <div class="ls-reveal" style="background:var(--color-surface);border-radius:var(--radius);padding:2rem 1.5rem;text-align:center;box-shadow:0 8px 26px rgba(27,36,52,0.07);border:1px solid rgba(27,36,52,0.04);">
+              <div data-count={stat.target} data-suffix={stat.suffix} style="font-size:clamp(2.6rem,6vw,3.4rem);font-weight:900;line-height:1;background:var(--gradient-primary);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">0</div>
+              <div data-en={stat.label.en} style="font-weight:800;font-size:1.05rem;margin-top:0.6rem;color:var(--color-text);">{stat.label.he}</div>
+              <div data-en={stat.sub.en} style="color:var(--color-text-muted);font-size:0.9rem;margin-top:0.35rem;">{stat.sub.he}</div>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- ===== Pillars ===== -->
+    <section id="pillars" style="margin-bottom:clamp(3.5rem,7vw,6rem);">
+      <div style="text-align:center;margin-bottom:2.25rem;">
+        <h2 data-en="Three pillars of action" style="display:inline-block;width:auto;font-size:clamp(1.6rem,3.5vw,2.2rem);">שלושה עמודי פעולה</h2>
+        <p data-en="Every initiative was born from one simple question: how can we help more?" style="color:var(--color-text-muted);font-size:1.1rem;margin:0.5rem 0 0;">כל יוזמה נולדה משאלה פשוטה: איך אפשר לעזור עוד?</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;">
+        {
+          pillars.map((p) => (
+            <div class="ls-reveal ls-card" style="position:relative;background:var(--color-surface);border-radius:var(--radius);overflow:hidden;box-shadow:0 8px 26px rgba(27,36,52,0.08);border:1px solid rgba(27,36,52,0.04);transition:transform 0.25s cubic-bezier(0.16,1,0.3,1),box-shadow 0.25s ease;display:flex;flex-direction:column;">
+              <div style={`height:6px;background:${p.grad};`} />
+              <div style="padding:1.75rem;display:flex;flex-direction:column;flex:1;">
+                <span aria-hidden="true" style="font-size:2.4rem;line-height:1;margin-bottom:0.9rem;">{p.icon}</span>
+                <h3 data-en={p.title.en} style="margin:0 0 0.6rem;font-size:1.3rem;font-weight:800;color:var(--color-text);">{p.title.he}</h3>
+                <p data-en={p.body.en} style="margin:0 0 1.1rem;color:var(--color-text-muted);line-height:1.6;flex:1;">{p.body.he}</p>
+                <div style="display:flex;flex-wrap:wrap;gap:0.4rem;">
+                  {
+                    p.tags.map((tag) => (
+                      <span data-en={tag.en} style="font-size:0.78rem;font-weight:700;color:var(--color-accent-2);background:rgba(43,163,227,0.1);padding:0.3rem 0.7rem;border-radius:999px;">{tag.he}</span>
+                    ))
+                  }
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- ===== Timeline ===== -->
+    <section id="journey" style="margin-bottom:clamp(3.5rem,7vw,6rem);">
+      <div style="text-align:center;margin-bottom:2.75rem;">
+        <h2 data-en="The journey — from age 8½ to the Knesset" style="display:inline-block;width:auto;font-size:clamp(1.6rem,3.5vw,2.2rem);">המסע — מגיל 8½ ועד הכנסת</h2>
+        <p data-en="Every year, another step of good." style="color:var(--color-text-muted);font-size:1.1rem;margin:0.5rem 0 0;">כל שנה, עוד צעד של טוב.</p>
+      </div>
+      <div style="position:relative;padding-inline-start:2rem;">
+        <span aria-hidden="true" style="position:absolute;inset-inline-start:7px;top:6px;bottom:6px;width:3px;border-radius:999px;background:var(--gradient-warm);"></span>
+        {
+          milestones.map((m) => (
+            <div class="ls-reveal" style="position:relative;margin-bottom:1.75rem;">
+              <span aria-hidden="true" style="position:absolute;inset-inline-start:-2rem;top:4px;width:17px;height:17px;border-radius:999px;background:var(--color-surface);border:4px solid var(--color-accent-2);box-shadow:0 0 0 4px rgba(43,163,227,0.14);"></span>
+              <div style="background:var(--color-surface);border-radius:var(--radius);padding:1.4rem 1.6rem;box-shadow:0 6px 20px rgba(27,36,52,0.07);border:1px solid rgba(27,36,52,0.04);">
+                <span data-en={m.when.en} style="display:inline-block;font-weight:900;font-size:0.85rem;color:var(--color-accent);background:rgba(255,139,61,0.12);padding:0.25rem 0.7rem;border-radius:999px;margin-bottom:0.6rem;">{m.when.he}</span>
+                <h3 data-en={m.title.en} style="margin:0 0 0.35rem;font-size:1.15rem;font-weight:800;color:var(--color-text);">{m.title.he}</h3>
+                <p data-en={m.body.en} style="margin:0;color:var(--color-text-muted);line-height:1.55;">{m.body.he}</p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- ===== Contact / Spread the love ===== -->
+    <section id="contact" style="margin-bottom:2.5rem;">
+      <div style="background:radial-gradient(circle at 15% 20%,rgba(255,255,255,0.18),transparent 42%),var(--gradient-primary);border-radius:28px;padding:clamp(2rem,5vw,3.5rem);color:#fff;box-shadow:0 20px 50px rgba(43,163,227,0.28);">
+        <div style="text-align:center;max-width:46ch;margin:0 auto 2rem;">
+          <h2 data-en="Let's spread the love together" style="margin:0 0 0.75rem;font-size:clamp(1.7rem,4vw,2.4rem);font-weight:900;color:#fff;width:auto;display:block;padding:0;">בואו נפיץ טוב ביחד</h2>
+          <p data-en="Municipalities, schools, and young people — want to launch the Good Deeds Challenge in your city or team up on a community project? Write to me." style="margin:0;font-size:1.1rem;color:rgba(255,255,255,0.92);line-height:1.6;">רשויות, בתי ספר ובני נוער — רוצים להשיק את אתגר המעשים הטובים בעיר שלכם או לשתף פעולה בפרויקט קהילתי? כתבו לי.</p>
+        </div>
+
+        <div data-form-success hidden style="max-width:520px;margin:0 auto;text-align:center;background:rgba(255,255,255,0.16);border-radius:var(--radius);padding:2.5rem 1.5rem;">
+          <div aria-hidden="true" style="font-size:3rem;line-height:1;margin-bottom:0.75rem;">🌻</div>
+          <div data-en="Thank you, truly!" style="font-size:1.35rem;font-weight:800;">תודה מכל הלב!</div>
+          <p data-en="Your message is in. I'll be in touch soon so we can create good together." style="margin:0.5rem 0 0;color:rgba(255,255,255,0.9);">ההודעה נקלטה. נחזור אליכם בקרוב כדי ליצור טוב ביחד.</p>
+        </div>
+
+        <form data-contact-form style="max-width:640px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;">
+          <label style="display:flex;flex-direction:column;gap:0.4rem;font-weight:700;font-size:0.9rem;">
+            <span data-en="Full name">שם מלא</span>
+            <input type="text" required data-en-ph="What's your name?" placeholder="איך קוראים לכם?" style="font-family:inherit;font-size:1rem;padding:0.8rem 1rem;border-radius:12px;border:none;background:rgba(255,255,255,0.95);color:var(--color-text);outline:none;" />
+          </label>
+          <label style="display:flex;flex-direction:column;gap:0.4rem;font-weight:700;font-size:0.9rem;">
+            <span data-en="Email">אימייל</span>
+            <input type="email" required data-en-ph="you@example.com" placeholder="you@example.com" style="font-family:inherit;font-size:1rem;padding:0.8rem 1rem;border-radius:12px;border:none;background:rgba(255,255,255,0.95);color:var(--color-text);outline:none;" />
+          </label>
+          <label style="display:flex;flex-direction:column;gap:0.4rem;font-weight:700;font-size:0.9rem;">
+            <span data-en="I represent">אני מייצג/ת</span>
+            <select style="font-family:inherit;font-size:1rem;padding:0.8rem 1rem;border-radius:12px;border:none;background:rgba(255,255,255,0.95);color:var(--color-text);outline:none;">
+              {roleOptions.map((opt) => <option data-en={opt.en}>{opt.he}</option>)}
+            </select>
+          </label>
+          <label style="display:flex;flex-direction:column;gap:0.4rem;font-weight:700;font-size:0.9rem;">
+            <span data-en="City / organization">עיר / ארגון</span>
+            <input type="text" data-en-ph="e.g. Ramat Gan Municipality" placeholder="לדוגמה: עיריית רמת גן" style="font-family:inherit;font-size:1rem;padding:0.8rem 1rem;border-radius:12px;border:none;background:rgba(255,255,255,0.95);color:var(--color-text);outline:none;" />
+          </label>
+          <label style="display:flex;flex-direction:column;gap:0.4rem;font-weight:700;font-size:0.9rem;grid-column:1/-1;">
+            <span data-en="Your idea">הרעיון שלכם</span>
+            <textarea rows="4" data-en-ph="Tell me how you'd like to collaborate…" placeholder="ספרו לי איך תרצו לשתף פעולה…" style="font-family:inherit;font-size:1rem;padding:0.8rem 1rem;border-radius:12px;border:none;background:rgba(255,255,255,0.95);color:var(--color-text);outline:none;resize:vertical;"></textarea>
+          </label>
+          <div style="grid-column:1/-1;text-align:center;margin-top:0.5rem;">
+            <button type="submit" class="button" data-en="Let's create good together" style="background:#fff;color:var(--color-accent);font-size:1.05rem;padding:0.85rem 2rem;border:none;cursor:pointer;font-family:inherit;">בואו ניצור טוב ביחד</button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+</LandingLayout>
+
+<style>
+  .ls-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 40px rgba(27, 36, 52, 0.14);
+  }
+</style>
