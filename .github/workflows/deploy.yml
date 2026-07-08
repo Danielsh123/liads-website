@@ -24,6 +24,9 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      # Regenerate the design cards from src/components/*.astro (also runs via the
+      # prebuild hook, but kept explicit so CI failures here are obvious).
+      - run: npm run build:design-cards
       - run: npm run build
       - uses: actions/upload-pages-artifact@v3
         with:

@@ -5,6 +5,8 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
+    "build:design-cards": "node scripts/build-design-cards.mjs",
+    "prebuild": "npm run build:design-cards",
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check"

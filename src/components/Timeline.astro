@@ -1,0 +1,23 @@
+---
+import type { Milestone } from "../data/content";
+
+interface Props {
+  milestones: Milestone[];
+}
+const { milestones } = Astro.props;
+---
+<div style="position:relative;padding-inline-start:2rem;">
+  <span aria-hidden="true" style="position:absolute;inset-inline-start:7px;top:6px;bottom:6px;width:3px;border-radius:999px;background:var(--gradient-warm);"></span>
+  {
+    milestones.map((m) => (
+      <div class="ls-reveal" style="position:relative;margin-bottom:1.75rem;">
+        <span aria-hidden="true" style="position:absolute;inset-inline-start:-2rem;top:4px;width:17px;height:17px;border-radius:999px;background:var(--color-surface);border:4px solid var(--color-accent-2);box-shadow:0 0 0 4px rgba(43,163,227,0.14);"></span>
+        <div style="background:var(--color-surface);border-radius:var(--radius);padding:1.4rem 1.6rem;box-shadow:0 6px 20px rgba(27,36,52,0.07);border:1px solid rgba(27,36,52,0.04);">
+          <span data-en={m.when.en} style="display:inline-block;font-weight:900;font-size:0.85rem;color:var(--color-accent);background:rgba(255,139,61,0.12);padding:0.25rem 0.7rem;border-radius:999px;margin-bottom:0.6rem;">{m.when.he}</span>
+          <h3 data-en={m.title.en} style="margin:0 0 0.35rem;font-size:1.15rem;font-weight:800;color:var(--color-text);">{m.title.he}</h3>
+          <p data-en={m.body.en} style="margin:0;color:var(--color-text-muted);line-height:1.55;">{m.body.he}</p>
+        </div>
+      </div>
+    ))
+  }
+</div>

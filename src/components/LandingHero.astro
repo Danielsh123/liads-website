@@ -1,0 +1,43 @@
+---
+import type { Bilingual, HeroCta } from "../data/content";
+
+interface Props {
+  kicker: Bilingual;
+  title: Bilingual;
+  bio: Bilingual;
+  primaryCta: HeroCta;
+  secondaryCta: HeroCta;
+  /** Portrait image src. When omitted, a 🌻 placeholder renders (used by the design card). */
+  portrait?: string;
+}
+const { kicker, title, bio, primaryCta, secondaryCta, portrait } = Astro.props;
+---
+<header id="top" style="position:relative;overflow:hidden;padding:clamp(3rem,7vw,6rem) 1.5rem clamp(4rem,8vw,7rem);color:#fff;background:radial-gradient(circle at 12% 18%,rgba(255,255,255,0.22),transparent 42%),radial-gradient(circle at 88% 82%,rgba(255,255,255,0.16),transparent 46%),var(--gradient-primary);">
+  <span aria-hidden="true" style="position:absolute;top:8%;left:6%;width:120px;height:120px;background:rgba(255,255,255,0.14);animation:ls-blob 12s ease-in-out infinite;"></span>
+  <span aria-hidden="true" style="position:absolute;bottom:10%;right:8%;width:180px;height:180px;background:rgba(255,255,255,0.1);animation:ls-blob 16s ease-in-out infinite reverse;"></span>
+  <div style="position:relative;max-width:var(--max-width-content);margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(2rem,5vw,4rem);align-items:center;">
+    <div>
+      <span data-en={kicker.en} style="display:inline-block;font-weight:800;font-size:0.9rem;letter-spacing:0.06em;text-transform:uppercase;background:rgba(255,255,255,0.2);padding:0.4rem 1rem;border-radius:999px;margin-bottom:1.25rem;">{kicker.he}</span>
+      <h1 data-en={title.en} style="margin:0 0 1.1rem;font-size:clamp(2.4rem,6vw,4.2rem);font-weight:900;line-height:1.05;text-wrap:balance;">{title.he}</h1>
+      <p data-en={bio.en} style="margin:0 0 2rem;font-size:clamp(1.05rem,2vw,1.3rem);color:rgba(255,255,255,0.92);max-width:36ch;line-height:1.6;">{bio.he}</p>
+      <div style="display:flex;flex-wrap:wrap;gap:0.9rem;align-items:center;">
+        <a class="button" href={primaryCta.href} data-en={primaryCta.en} style="background:#fff;color:var(--color-accent);font-size:1.05rem;padding:0.85rem 1.75rem;">{primaryCta.he}</a>
+        <a href={secondaryCta.href} data-en={secondaryCta.en} style="color:#fff;font-weight:800;padding:0.85rem 0.5rem;border-bottom:2px solid rgba(255,255,255,0.5);border-radius:0;">{secondaryCta.he}</a>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:center;">
+      <div style="position:relative;width:min(340px,80vw);aspect-ratio:1;animation:ls-float 7s ease-in-out infinite;">
+        <span aria-hidden="true" style="position:absolute;inset:-6%;background:var(--gradient-warm);animation:ls-blob 14s ease-in-out infinite;box-shadow:0 24px 60px rgba(27,36,52,0.28);"></span>
+        {
+          portrait ? (
+            <div style="position:absolute;inset:0;overflow:hidden;animation:ls-blob 14s ease-in-out infinite;">
+              <img src={portrait} alt="ליעד שפירא" style="width:100%;height:100%;object-fit:cover;display:block;" />
+            </div>
+          ) : (
+            <div aria-hidden="true" style="position:absolute;inset:0;overflow:hidden;animation:ls-blob 14s ease-in-out infinite;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.15);font-size:3rem;">🌻</div>
+          )
+        }
+      </div>
+    </div>
+  </div>
+</header>

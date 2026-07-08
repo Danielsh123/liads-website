@@ -1,0 +1,26 @@
+---
+import type { Post } from "../data/content";
+
+interface Props {
+  post: Post;
+}
+const { post } = Astro.props;
+---
+<li class="feed-item feed-item--instagram ls-reveal" style="margin-bottom:0;">
+  <span class="badge badge-instagram">📸 <span data-en="Instagram">אינסטגרם</span></span>
+  <h3 data-en={post.title.en}>{post.title.he}</h3>
+  <p class="feed-item__date" data-en={post.date.en}>{post.date.he}</p>
+  <a class="embed embed-instagram" href={post.link} target="_blank" rel="noopener">
+    <span class="embed-media" style="display:flex;align-items:center;justify-content:center;aspect-ratio:1;background:var(--gradient-instagram);">
+      {
+        post.img ? (
+          <img src={post.img} alt={post.title.he} loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;" />
+        ) : (
+          <span aria-hidden="true" style="font-size:3rem;opacity:0.6;">📸</span>
+        )
+      }
+    </span>
+    <span class="embed-instagram__label" data-en="View on Instagram →">צפו באינסטגרם &larr;</span>
+  </a>
+  <p class="feed-item__caption" data-en={post.caption.en}>{post.caption.he}</p>
+</li>
