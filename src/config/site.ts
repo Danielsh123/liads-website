@@ -20,6 +20,8 @@ export const site: SiteConfig = {
   nav: [
     { text: "בית", url: "/" },
     { text: "עבודות", url: "/work/" },
+    { text: "פודקאסטים", url: "/podcasts/" },
+    { text: "אינסטגרם", url: "/instagram/" },
     { text: "אודות", url: "/about/" },
     { text: "צור קשר", url: "/contact/" },
   ],

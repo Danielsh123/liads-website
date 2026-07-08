@@ -1,0 +1,16 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import FeedList from "../components/FeedList.astro";
+
+// Dedicated Instagram feed — same typed `work` collection, filtered to posts.
+const entries = (await getCollection("work"))
+  .filter((entry) => entry.data.embedType === "instagram")
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+<BaseLayout title="אינסטגרם" bodyClass="page-work">
+  <section class="feed">
+    <h2 class="reveal">אינסטגרם</h2>
+    <FeedList entries={entries} headingLevel="h2" showBody={true} />
+  </section>
+</BaseLayout>

@@ -7,21 +7,22 @@
    pull — no copying. Edit tokens/rules here (or via Claude Design), not elsewhere.
 ----------------------------------------------------------------------------- */
 :root {
-  --color-bg: #fdf7f0;
+  --color-bg: #fdf8f1;
   --color-surface: #ffffff;
-  --color-text: #201a2b;
-  --color-text-muted: #6b6376;
-  /* placeholder palette — confirm brand colors with Liad */
-  --color-accent: #ff4d6d;
-  --color-accent-2: #6c5ce7;
-  --color-accent-3: #ffb100;
-  --color-accent-4: #00c2a8;
+  --color-text: #1b2434;
+  --color-text-muted: #5c6675;
+  /* Optimistic & Radiant palette — sky blue (hope/community/peace),
+     sunset orange + warm gold (love/energy/warmth) on soft cream. */
+  --color-accent: #ff8b3d;   /* sunset orange */
+  --color-accent-2: #2ba3e3; /* sky blue */
+  --color-accent-3: #ffc247; /* warm gold */
+  --color-accent-4: #58c8ec; /* light sky */
   --gradient-primary: linear-gradient(135deg, var(--color-accent-2), var(--color-accent));
   --gradient-warm: linear-gradient(90deg, var(--color-accent), var(--color-accent-3), var(--color-accent-4));
   --gradient-podcast: linear-gradient(135deg, var(--color-accent-2), var(--color-accent-4));
   --gradient-instagram: linear-gradient(135deg, var(--color-accent), var(--color-accent-3));
   --gradient-photo: linear-gradient(135deg, var(--color-accent-3), var(--color-accent-4));
-  --font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  --font-family-base: "Heebo", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
   --max-width-content: 720px;
   --space-section: 2.5rem;
   --radius: 14px;
@@ -180,7 +181,7 @@ section > h2::after,
   right: -40px;
   width: 220px;
   height: 220px;
-  background: radial-gradient(circle, rgba(255, 77, 109, 0.14), transparent 70%);
+  background: radial-gradient(circle, rgba(255, 139, 61, 0.16), transparent 70%);
   pointer-events: none;
 }
 
@@ -210,8 +211,8 @@ section > h2::after,
 .page-about .about-photo {
   box-shadow:
     0 10px 28px rgba(32, 26, 43, 0.18),
-    -14px 14px 0 10px rgba(255, 77, 109, 0.15),
-    14px -14px 0 10px rgba(108, 92, 231, 0.15);
+    -14px 14px 0 10px rgba(255, 139, 61, 0.15),
+    14px -14px 0 10px rgba(43, 163, 227, 0.15);
 }
 
 /* Contact: bold gradient CTA panel instead of a plain link */
@@ -267,14 +268,14 @@ section > h2::after,
   font-weight: 700;
   padding: 0.7rem 1.4rem;
   border-radius: 999px;
-  box-shadow: 0 6px 16px rgba(255, 77, 109, 0.3);
+  box-shadow: 0 6px 16px rgba(255, 139, 61, 0.32);
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .button:hover {
   color: #ffffff;
   transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 10px 22px rgba(255, 77, 109, 0.4);
+  box-shadow: 0 10px 22px rgba(255, 139, 61, 0.42);
 }
 
 .feed-list {
