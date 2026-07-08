@@ -1,0 +1,35 @@
+[
+  {
+    "id": "ep-1-idea-2024-07",
+    "title": { "he": "מאהבת חינם לשנאת חינם — ובחזרה", "en": "From senseless love to senseless hate — and back" },
+    "ep": { "he": "פרק 1 · הרעיון שמאחורי התנועה", "en": "Ep. 1 · The idea behind the movement" },
+    "date": { "he": "יולי 2024", "en": "July 2024" },
+    "length": { "he": "28 דק׳", "en": "28 min" },
+    "caption": {
+      "he": "איך הופכים יום של שנאה ליום של אהבה, ולמה זה מתחיל בכל אחד מאיתנו.",
+      "en": "How to turn a day of hate into a day of love, and why it starts with each of us."
+    }
+  },
+  {
+    "id": "ep-2-age-superpower-2024-09",
+    "title": { "he": "בת 15 ומובילה תנועה ארצית", "en": "15 years old, leading a national movement" },
+    "ep": { "he": "פרק 2 · הגיל הוא כוח על", "en": "Ep. 2 · Age is a superpower" },
+    "date": { "he": "ספטמבר 2024", "en": "September 2024" },
+    "length": { "he": "34 דק׳", "en": "34 min" },
+    "caption": {
+      "he": "על להיות צעירה, להאמין בגדול, ולא לחכות לרשות מאף אחד.",
+      "en": "On being young, thinking big, and not waiting for anyone's permission."
+    }
+  },
+  {
+    "id": "ep-3-resilience-2024-11",
+    "title": { "he": "חוסן נוער בזמן מלחמה", "en": "Youth resilience in wartime" },
+    "ep": { "he": "פרק 3 · להחזיק ביחד", "en": "Ep. 3 · Holding on together" },
+    "date": { "he": "נובמבר 2024", "en": "November 2024" },
+    "length": { "he": "41 דק׳", "en": "41 min" },
+    "caption": {
+      "he": "כלים אמיתיים לבני נוער ולמחנכים בתקופות של אי-ודאות.",
+      "en": "Real tools for young people and educators in times of uncertainty."
+    }
+  }
+]

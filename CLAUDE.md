@@ -72,3 +72,25 @@ So the two flows are cleanly split:
   `LandingLayout.astro` swaps them. Keep both when adding copy.
 - Internal links/asset srcs written as string literals must be wrapped in
   `withBase()` (`src/lib/url.ts`) so they resolve under the GitHub Pages subpath.
+
+## Content data (Instagram posts / podcast episodes)
+
+`instagramPosts` and `podcastEpisodes` (exported from `src/data/content.ts`) are sourced from
+`src/data/instagram-posts.json` and `src/data/podcast-episodes.json` — not inline — so they can
+be read/written programmatically. Each item has a stable `id`. `Episode.embedUrl` is optional:
+when set (a Spotify episode/show link), `FeedItemPodcast.astro` renders a real embed via
+`src/lib/spotify.ts`; otherwise it falls back to the decorative static player.
+
+## Admin Studio
+
+`/admin/studio/` (`src/pages/admin/studio.astro` + `src/scripts/adminStudio.ts`) is a private
+tool for adding Instagram posts / podcast episodes without code — see the README's "Admin
+Studio" section for the full picture. Two things matter for future changes here:
+
+- It has its own decorative gate (no real auth) and is intentionally not linked from the
+  public nav (`noindex`). Don't wire it into `Nav.astro`.
+- Publishing writes directly to `main` via the GitHub REST API (`src/lib/github.ts`), using a
+  token the admin supplies and stores in their own browser only. If the JSON schema for posts/
+  episodes changes, update `submitForm`/`publishDraft` in `adminStudio.ts` to match, and keep
+  the `Post`/`Episode` interfaces in `src/data/content.ts` as the one source of truth for the
+  shape both the site and the studio read/write.

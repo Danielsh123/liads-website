@@ -5,9 +5,16 @@
  * live pages import it, and `scripts/build-design-cards.mjs` reuses the same
  * objects as representative sample props when generating the design cards. Edit
  * copy here; edit *markup* in `src/components/*.astro`.
+ *
+ * `instagramPosts` and `podcastEpisodes` live in `instagram-posts.json` and
+ * `podcast-episodes.json` in this folder (not inline) so the Admin Studio
+ * (`src/pages/admin/studio.astro`) can read/write them programmatically via the
+ * GitHub API — see `src/lib/github.ts`.
  */
 import { withBase } from "../lib/url";
 import type { LandingNavLink } from "../lib/nav";
+import instagramPostsData from "./instagram-posts.json";
+import podcastEpisodesData from "./podcast-episodes.json";
 
 /** A Hebrew/English string pair (Hebrew is rendered; English drives the toggle). */
 export interface Bilingual {
@@ -162,18 +169,18 @@ export const contact = {
 // ---- Podcasts --------------------------------------------------------------
 
 export interface Episode {
+  /** Stable id — used by the Admin Studio to find/update/remove this entry. */
+  id: string;
   title: Bilingual;
   ep: Bilingual;
   date: Bilingual;
   length: Bilingual;
   caption: Bilingual;
+  /** Spotify episode/show URL. When present, FeedItemPodcast renders a real embed. */
+  embedUrl?: string;
 }
 
-export const podcastEpisodes: Episode[] = [
-  { title: { he: "מאהבת חינם לשנאת חינם — ובחזרה", en: "From senseless love to senseless hate — and back" }, ep: { he: "פרק 1 · הרעיון שמאחורי התנועה", en: "Ep. 1 · The idea behind the movement" }, date: { he: "יולי 2024", en: "July 2024" }, length: { he: "28 דק׳", en: "28 min" }, caption: { he: "איך הופכים יום של שנאה ליום של אהבה, ולמה זה מתחיל בכל אחד מאיתנו.", en: "How to turn a day of hate into a day of love, and why it starts with each of us." } },
-  { title: { he: "בת 15 ומובילה תנועה ארצית", en: "15 years old, leading a national movement" }, ep: { he: "פרק 2 · הגיל הוא כוח על", en: "Ep. 2 · Age is a superpower" }, date: { he: "ספטמבר 2024", en: "September 2024" }, length: { he: "34 דק׳", en: "34 min" }, caption: { he: "על להיות צעירה, להאמין בגדול, ולא לחכות לרשות מאף אחד.", en: "On being young, thinking big, and not waiting for anyone's permission." } },
-  { title: { he: "חוסן נוער בזמן מלחמה", en: "Youth resilience in wartime" }, ep: { he: "פרק 3 · להחזיק ביחד", en: "Ep. 3 · Holding on together" }, date: { he: "נובמבר 2024", en: "November 2024" }, length: { he: "41 דק׳", en: "41 min" }, caption: { he: "כלים אמיתיים לבני נוער ולמחנכים בתקופות של אי-ודאות.", en: "Real tools for young people and educators in times of uncertainty." } },
-];
+export const podcastEpisodes: Episode[] = podcastEpisodesData as Episode[];
 
 export const podcastMiniContact = {
   text: { he: "רוצים לארח את ליעד בפרק? דברו איתי 🎙", en: "Want Liad on your episode? Talk to me 🎙" },
@@ -184,19 +191,26 @@ export const podcastMiniContact = {
 // ---- Instagram -------------------------------------------------------------
 
 export interface Post {
+  /** Stable id — used by the Admin Studio to find/update/remove this entry. */
+  id: string;
   title: Bilingual;
   date: Bilingual;
   link: string;
+  /** A local asset path (resolved via withBase) or an absolute http(s) URL. */
   img?: string;
   caption: Bilingual;
 }
 
-export const instagramPosts: Post[] = [
-  { title: { he: "אתגר המעשים הטובים · תשעה באב", en: "Good Deeds Challenge · Tisha B'Av" }, date: { he: "יולי 2024", en: "July 2024" }, link: "#", caption: { he: "יום שלם של אהבת חינם ברמת גן — מאות מתנדבים, אלפי מעשים טובים.", en: "A full day of senseless love in Ramat Gan — hundreds of volunteers, thousands of good deeds." } },
-  { title: { he: "ביקור בבית האבות המאומץ", en: "Visiting our adopted nursing home" }, date: { he: "מאי 2024", en: "May 2024" }, link: "#", caption: { he: "החיוכים של סבתות וסבים הם הדלק הכי טוב שיש.", en: "The smiles of grandmas and grandpas are the best fuel there is." } },
-  { title: { he: "בת מצווה לכל נערה", en: "A Bat Mitzvah for every girl" }, date: { he: "מרץ 2024", en: "March 2024" }, link: "#", caption: { he: "עיצוב שיער לנערות במצוקה — כל אחת נסיכה ביום שלה.", en: "Hair styling for girls in need — everyone's a princess on her day." } },
-  { title: { he: "נאום בכנסת", en: "Speaking at the Knesset" }, date: { he: "פברואר 2025", en: "February 2025" }, link: "#", img: withBase("/assets/liad/stage-moment.jpeg"), caption: { he: "קול של דור שבוחר לרפא. תודה על הבמה.", en: "The voice of a generation that chooses to heal. Thank you for the stage." } },
-];
+/** Local asset paths need the GitHub Pages base prefix; absolute URLs pass through as-is. */
+function resolvePostAsset(src?: string): string | undefined {
+  if (!src) return undefined;
+  return /^https?:\/\//.test(src) ? src : withBase(src);
+}
+
+export const instagramPosts: Post[] = (instagramPostsData as Post[]).map((post) => ({
+  ...post,
+  img: resolvePostAsset(post.img),
+}));
 
 export const instagramMiniContact = {
   text: { he: "יש רגע טוב שתרצו לשתף? תייגו אותי ✨", en: "Have a good moment to share? Tag me ✨" },

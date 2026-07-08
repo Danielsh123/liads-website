@@ -1,0 +1,80 @@
+---
+import "../../../design/styles/global.css";
+---
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <title>הסטודיו של ליעד — Admin</title>
+    <style>
+      /*
+        Local-only tokens: this admin tool needs a couple of status colors
+        that the public site's design has no use for. Adding them here keeps
+        design/styles/global.css (owned by /design-sync) untouched.
+      */
+      :root {
+        --err: #e5484d;
+        --ok: #1e9e5a;
+        --amber: #d98a00;
+      }
+      body {
+        font-family: var(--font-family-base);
+      }
+      .adm-field {
+        width: 100%;
+        font-family: inherit;
+        font-size: 1rem;
+        color: var(--color-text);
+        background: #fff;
+        border: 2px solid rgba(27, 36, 52, 0.12);
+        border-radius: 12px;
+        padding: 0.7rem 0.9rem;
+        transition: border-color .15s ease, box-shadow .15s ease;
+      }
+      .adm-field:focus {
+        outline: none;
+        border-color: var(--color-accent-2);
+        box-shadow: 0 0 0 4px rgba(43, 163, 227, 0.14);
+      }
+      .adm-field::placeholder {
+        color: #a7adb8;
+      }
+      .adm-field.adm-field--err {
+        border-color: var(--err, #e5484d);
+      }
+      .adm-button {
+        box-shadow: 0 6px 16px rgba(255, 139, 61, 0.32);
+        border: none;
+        cursor: pointer;
+        font-family: inherit;
+      }
+      .adm-button:hover {
+        box-shadow: 0 10px 22px rgba(255, 139, 61, 0.42);
+      }
+      @keyframes ls-pop {
+        0% { opacity: 0; transform: scale(0.97) translateY(6px); }
+        100% { opacity: 1; transform: scale(1) translateY(0); }
+      }
+      a { text-decoration: none; }
+    </style>
+  </head>
+  <body>
+    <div
+      id="admin-root"
+      style="min-height:100vh;background:var(--color-bg);color:var(--color-text);overflow-x:hidden;"
+    >
+      <noscript>
+        <p style="padding:2rem;text-align:center;">הסטודיו דורש JavaScript. Please enable JavaScript to use the studio.</p>
+      </noscript>
+    </div>
+    <script src="../../scripts/adminStudio.ts"></script>
+  </body>
+</html>

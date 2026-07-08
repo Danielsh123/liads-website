@@ -1,0 +1,43 @@
+[
+  {
+    "id": "good-deeds-tisha-bav-2024-07",
+    "title": { "he": "אתגר המעשים הטובים · תשעה באב", "en": "Good Deeds Challenge · Tisha B'Av" },
+    "date": { "he": "יולי 2024", "en": "July 2024" },
+    "link": "#",
+    "caption": {
+      "he": "יום שלם של אהבת חינם ברמת גן — מאות מתנדבים, אלפי מעשים טובים.",
+      "en": "A full day of senseless love in Ramat Gan — hundreds of volunteers, thousands of good deeds."
+    }
+  },
+  {
+    "id": "nursing-home-visit-2024-05",
+    "title": { "he": "ביקור בבית האבות המאומץ", "en": "Visiting our adopted nursing home" },
+    "date": { "he": "מאי 2024", "en": "May 2024" },
+    "link": "#",
+    "caption": {
+      "he": "החיוכים של סבתות וסבים הם הדלק הכי טוב שיש.",
+      "en": "The smiles of grandmas and grandpas are the best fuel there is."
+    }
+  },
+  {
+    "id": "bat-mitzvah-2024-03",
+    "title": { "he": "בת מצווה לכל נערה", "en": "A Bat Mitzvah for every girl" },
+    "date": { "he": "מרץ 2024", "en": "March 2024" },
+    "link": "#",
+    "caption": {
+      "he": "עיצוב שיער לנערות במצוקה — כל אחת נסיכה ביום שלה.",
+      "en": "Hair styling for girls in need — everyone's a princess on her day."
+    }
+  },
+  {
+    "id": "knesset-speech-2025-02",
+    "title": { "he": "נאום בכנסת", "en": "Speaking at the Knesset" },
+    "date": { "he": "פברואר 2025", "en": "February 2025" },
+    "link": "#",
+    "img": "/assets/liad/stage-moment.jpeg",
+    "caption": {
+      "he": "קול של דור שבוחר לרפא. תודה על הבמה.",
+      "en": "The voice of a generation that chooses to heal. Thank you for the stage."
+    }
+  }
+]
